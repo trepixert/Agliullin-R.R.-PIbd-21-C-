@@ -47,17 +47,17 @@ namespace ConfectioneryShopForm {
         }
 
         private void клиентыToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormClients>();
+            var form = Container.Resolve<FormCustomers>();
             form.ShowDialog();
         }
 
         private void компонентыToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormComponents>();
+            var form = Container.Resolve<FormDetails>();
             form.ShowDialog();
         }
 
         private void изделияToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormProducts>();
+            var form = Container.Resolve<FormOutputs>();
             form.ShowDialog();
         }
 

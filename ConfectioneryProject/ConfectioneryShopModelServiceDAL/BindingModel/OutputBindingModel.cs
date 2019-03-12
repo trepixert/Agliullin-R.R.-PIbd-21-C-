@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ConfectioneryShopModelServiceDAL.BindingModel {
-    public class OrderBindingModel {
+    public class OutputBindingModel {
         public int ID { get; set; }
-        public int CustomerID { get; set; }
-        public int OutputID { get; set; }
-        public int Count { get; set; }
-        public decimal Sum { get; set; }
+        public string OutputName { get; set; }
+        public decimal Price { get; set; }
+        public List<ConnectionBetweenDetailAndOutput> OutputDetail { get; set; }
     }
 }

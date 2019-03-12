@@ -41,22 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindingModel\ClientBindingModel.cs" />
-    <Compile Include="BindingModel\ComponentBindingModel.cs" />
-    <Compile Include="BindingModel\ConnectionBetweenComponentAndProduct.cs" />
+    <Compile Include="BindingModel\CustomerBindingModel.cs" />
+    <Compile Include="BindingModel\DetailBindingModel.cs" />
+    <Compile Include="BindingModel\ConnectionBetweenDetailAndOutput.cs" />
     <Compile Include="BindingModel\OrderBindingModel.cs" />
-    <Compile Include="BindingModel\ProductBindingModel.cs" />
-    <Compile Include="LogicInterface\IClientService.cs" />
-    <Compile Include="LogicInterface\IComponentService.cs" />
+    <Compile Include="BindingModel\OutputBindingModel.cs" />
+    <Compile Include="LogicInterface\ICustomerService.cs" />
+    <Compile Include="LogicInterface\IDetailService.cs" />
     <Compile Include="LogicInterface\ILogic.cs" />
     <Compile Include="LogicInterface\IMainService.cs" />
-    <Compile Include="LogicInterface\IProductService.cs" />
+    <Compile Include="LogicInterface\IOutputService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\ClientViewModel.cs" />
-    <Compile Include="ViewModel\ComponentViewModel.cs" />
-    <Compile Include="ViewModel\ConnectionBetweenComponentAndProductViewModel.cs" />
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\DetailViewModel.cs" />
+    <Compile Include="ViewModel\ConnectionBetweenDetailAndOutputViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
-    <Compile Include="ViewModel\ProductViewModel.cs" />
+    <Compile Include="ViewModel\OutputViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConfectioneryProject\ConfectioneryShopModel.csproj">

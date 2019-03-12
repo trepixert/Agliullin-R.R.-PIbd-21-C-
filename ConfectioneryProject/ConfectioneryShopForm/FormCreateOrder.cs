@@ -17,11 +17,11 @@ namespace ConfectioneryShopForm {
 
         [Dependency]
         public new IUnityContainer Container { get; set; }
-        private readonly IClientService serviceC;
-        private readonly IProductService serviceP;
+        private readonly ICustomerService serviceC;
+        private readonly IOutputService serviceP;
         private readonly IMainService serviceM;
 
-        public FormCreateOrder(IClientService serviceC, IProductService serviceP,
+        public FormCreateOrder(ICustomerService serviceC, IOutputService serviceP,
 IMainService serviceM) {
             InitializeComponent();
             this.serviceC = serviceC;
@@ -31,14 +31,14 @@ IMainService serviceM) {
 
         private void FormCreateOrder_Load(object sender, EventArgs e) {
             try {
-                List<ClientViewModel> listC = serviceC.getList();
+                List<CustomerViewModel> listC = serviceC.getList();
                 if (listC != null) {
                     comboBoxClient.DisplayMember = "ClientFIO";
                     comboBoxClient.ValueMember = "Id";
                     comboBoxClient.DataSource = listC;
                     comboBoxClient.SelectedItem = null;
                 }
-                List<ProductViewModel> listP = serviceP.getList();
+                List<OutputViewModel> listP = serviceP.getList();
                 if (listP != null) {
                     comboBoxProduct.DisplayMember = "ProductName";
                     comboBoxProduct.ValueMember = "Id";
@@ -56,7 +56,7 @@ IMainService serviceM) {
            !string.IsNullOrEmpty(textBoxCount.Text)) {
                 try {
                     int id = Convert.ToInt32(comboBoxProduct.SelectedValue);
-                    ProductViewModel product = serviceP.getElement(id);
+                    OutputViewModel product = serviceP.getElement(id);
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * product.Price).ToString();
                 } catch (Exception ex) {
@@ -68,7 +68,8 @@ IMainService serviceM) {
 
         private void textBoxCount_TextChanged(object sender, EventArgs e) {
             CalcSum();
-        }
+        }
+
         private void comboBoxProduct_SelectedIndexChanged(object sender, EventArgs e) {
             CalcSum();
         }
@@ -91,8 +92,8 @@ IMainService serviceM) {
             }
             try {
                 serviceM.createOrder(new OrderBindingModel {
-                    ClientID = Convert.ToInt32(comboBoxClient.SelectedValue),
-                    ProductID = Convert.ToInt32(comboBoxProduct.SelectedValue),
+                    CustomerID = Convert.ToInt32(comboBoxClient.SelectedValue),
+                    OutputID = Convert.ToInt32(comboBoxProduct.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToInt32(textBoxSum.Text)
                 });

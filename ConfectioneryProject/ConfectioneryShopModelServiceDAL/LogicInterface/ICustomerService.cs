@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.ViewModel;
+using ConfectioneryShopModelServiceDAL.BindingModel;
 
 namespace ConfectioneryShopModelServiceDAL.LogicInterface {
-    interface ILogic {
-        List<CustomerViewModel> GetList { get; set; }
+    public interface ICustomerService {
+        List<CustomerViewModel> getList();
         CustomerViewModel getElement(int id);
-        void addElement(CustomerBindingModel model);
-        void updElement(CustomerBindingModel model);
-        void delElement(int id);
+        void addElem(CustomerBindingModel model);
+        void updElem(CustomerBindingModel model);
+        void delElem(int id);
     }
 }

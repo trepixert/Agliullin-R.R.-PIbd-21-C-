@@ -23,12 +23,12 @@ namespace ConfectioneryShopForm {
 
         public static IUnityContainer BuildUnityContainer() {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<IClientService, ClientServiceList>(new
+            currentContainer.RegisterType<ICustomerService, CustomerServiceList>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IComponentService, ComponentServiceList>(new
+            currentContainer.RegisterType<IDetailService, DetailServiceList>(new
            HierarchicalLifetimeManager());
-           // currentContainer.RegisterType<IProductService, ProductServiceList>(new
-           //HierarchicalLifetimeManager());
+           // currentContainer.RegisterType<IOutputService, OutputServiceList>(new
+           //HierarchicalLifetimeManager()); не работает
             currentContainer.RegisterType<IMainService, MainServiceList>(new
            HierarchicalLifetimeManager());
             return currentContainer;

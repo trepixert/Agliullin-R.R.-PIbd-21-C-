@@ -18,25 +18,25 @@ namespace ConfectioneryShopImplement.Implementations {
             List<OrderViewModel> result = new List<OrderViewModel>();
             for (int i = 0; i < source.Orders.Count; ++i) {
                 string clientFIO = string.Empty;
-                for (int j = 0; j < source.Clients.Count; ++j) {
-                    if (source.Clients[j].ID == source.Orders[i].ClientID) {
-                        clientFIO = source.Clients[j].ClientFIO;
+                for (int j = 0; j < source.Customers.Count; ++j) {
+                    if (source.Customers[j].ID == source.Orders[i].CustomerID) {
+                        clientFIO = source.Customers[j].CustomerFIO;
                         break;
                     }
                 }
                 string productName = string.Empty;
-                for (int j = 0; j < source.Products.Count; ++j) {
-                    if (source.Products[j].ID == source.Orders[i].ProductID) {
-                        productName = source.Products[j].ProductName;
+                for (int j = 0; j < source.Outputs.Count; ++j) {
+                    if (source.Outputs[j].ID == source.Orders[i].OutputID) {
+                        productName = source.Outputs[j].OutputName;
                         break;
                     }
                 }
                 result.Add(new OrderViewModel {
                     ID = source.Orders[i].ID,
-                    ClientID = source.Orders[i].ClientID,
-                    ClientFIO = clientFIO,
-                    ProductID = source.Orders[i].ProductID,
-                    ProductName = productName,
+                    CustomerID = source.Orders[i].CustomerID,
+                    CustomerFIO = clientFIO,
+                    OutputID = source.Orders[i].OutputID,
+                    OutputName = productName,
                     Count = source.Orders[i].Count,
                     Sum = source.Orders[i].Sum,
                     DateCreate = source.Orders[i].DateCreate.ToLongDateString(),
@@ -51,13 +51,13 @@ namespace ConfectioneryShopImplement.Implementations {
             int maxId = 0;
             for (int i = 0; i < source.Orders.Count; ++i) {
                 if (source.Orders[i].ID > maxId) {
-                    maxId = source.Clients[i].ID;
+                    maxId = source.Customers[i].ID;
                 }
             }
             source.Orders.Add(new Order {
                 ID = maxId + 1,
-                ClientID = model.ClientID,
-                ProductID = model.ProductID,
+                CustomerID = model.CustomerID,
+                OutputID = model.OutputID,
                 DateCreate = DateTime.Now,
                 Count = model.Count,
                 Sum = model.Sum,
@@ -84,7 +84,7 @@ namespace ConfectioneryShopImplement.Implementations {
         public void finishOrder(OrderBindingModel model) {
             int index = -1;
             for (int i = 0; i < source.Orders.Count; ++i) {
-                if (source.Clients[i].ID == model.ID) {
+                if (source.Customers[i].ID == model.ID) {
                     index = i;
                     break;
                 }
@@ -100,7 +100,7 @@ namespace ConfectioneryShopImplement.Implementations {
         public void payOrder(OrderBindingModel model) {
             int index = -1;
             for (int i = 0; i < source.Orders.Count; ++i) {
-                if (source.Clients[i].ID == model.ID) {
+                if (source.Customers[i].ID == model.ID) {
                     index = i;
                     break;
                 }
