@@ -27,9 +27,11 @@ namespace ConfectioneryShopForm {
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IDetailService, DetailServiceList>(new
            HierarchicalLifetimeManager());
-           // currentContainer.RegisterType<IOutputService, OutputServiceList>(new
-           //HierarchicalLifetimeManager()); не работает
+            currentContainer.RegisterType<IOutputService, OutputServiceList>(new
+           HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMainService, MainServiceList>(new
+           HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IStorageService,StorageServiceList>(new 
            HierarchicalLifetimeManager());
             return currentContainer;
         }

@@ -33,17 +33,17 @@ IMainService serviceM) {
             try {
                 List<CustomerViewModel> listC = serviceC.getList();
                 if (listC != null) {
-                    comboBoxClient.DisplayMember = "ClientFIO";
-                    comboBoxClient.ValueMember = "Id";
-                    comboBoxClient.DataSource = listC;
-                    comboBoxClient.SelectedItem = null;
+                    comboBoxCustomer.DisplayMember = "CustomerFIO";
+                    comboBoxCustomer.ValueMember = "ID";
+                    comboBoxCustomer.DataSource = listC;
+                    comboBoxCustomer.SelectedItem = null;
                 }
                 List<OutputViewModel> listP = serviceP.getList();
                 if (listP != null) {
-                    comboBoxProduct.DisplayMember = "ProductName";
-                    comboBoxProduct.ValueMember = "Id";
-                    comboBoxProduct.DataSource = listP;
-                    comboBoxProduct.SelectedItem = null;
+                    comboBoxOutput.DisplayMember = "OutputName";
+                    comboBoxOutput.ValueMember = "ID";
+                    comboBoxOutput.DataSource = listP;
+                    comboBoxOutput.SelectedItem = null;
                 }
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
@@ -52,10 +52,10 @@ IMainService serviceM) {
         }
 
         private void CalcSum() {
-            if (comboBoxProduct.SelectedValue != null &&
+            if (comboBoxOutput.SelectedValue != null &&
            !string.IsNullOrEmpty(textBoxCount.Text)) {
                 try {
-                    int id = Convert.ToInt32(comboBoxProduct.SelectedValue);
+                    int id = Convert.ToInt32(comboBoxOutput.SelectedValue);
                     OutputViewModel product = serviceP.getElement(id);
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * product.Price).ToString();
@@ -80,20 +80,20 @@ IMainService serviceM) {
                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (comboBoxClient.SelectedValue == null) {
+            if (comboBoxCustomer.SelectedValue == null) {
                 MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
                 return;
             }
-            if (comboBoxProduct.SelectedValue == null) {
+            if (comboBoxOutput.SelectedValue == null) {
                 MessageBox.Show("Выберите изделие", "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
                 return;
             }
             try {
                 serviceM.createOrder(new OrderBindingModel {
-                    CustomerID = Convert.ToInt32(comboBoxClient.SelectedValue),
-                    OutputID = Convert.ToInt32(comboBoxProduct.SelectedValue),
+                    CustomerID = Convert.ToInt32(comboBoxCustomer.SelectedValue),
+                    OutputID = Convert.ToInt32(comboBoxOutput.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToInt32(textBoxSum.Text)
                 });

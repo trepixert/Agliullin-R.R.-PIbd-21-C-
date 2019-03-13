@@ -13,5 +13,6 @@ namespace ConfectioneryShopModelServiceDAL.LogicInterface {
         void takeOrderInWork(OrderBindingModel model);
         void finishOrder(OrderBindingModel model);
         void payOrder(OrderBindingModel model);
+        void putDetailOnStorage(StorageDetailBindingModel model);
     }
 }

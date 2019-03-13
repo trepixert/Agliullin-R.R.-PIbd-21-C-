@@ -27,8 +27,8 @@
             this.ProductLabel = new System.Windows.Forms.Label();
             this.CountLabel = new System.Windows.Forms.Label();
             this.SumLabel = new System.Windows.Forms.Label();
-            this.comboBoxClient = new System.Windows.Forms.ComboBox();
-            this.comboBoxProduct = new System.Windows.Forms.ComboBox();
+            this.comboBoxCustomer = new System.Windows.Forms.ComboBox();
+            this.comboBoxOutput = new System.Windows.Forms.ComboBox();
             this.textBoxCount = new System.Windows.Forms.TextBox();
             this.textBoxSum = new System.Windows.Forms.TextBox();
             this.save_Button = new System.Windows.Forms.Button();
@@ -71,22 +71,22 @@
             this.SumLabel.TabIndex = 3;
             this.SumLabel.Text = "Сумма:";
             // 
-            // comboBoxClient
+            // comboBoxCustomer
             // 
-            this.comboBoxClient.FormattingEnabled = true;
-            this.comboBoxClient.Location = new System.Drawing.Point(91, 13);
-            this.comboBoxClient.Name = "comboBoxClient";
-            this.comboBoxClient.Size = new System.Drawing.Size(194, 21);
-            this.comboBoxClient.TabIndex = 4;
+            this.comboBoxCustomer.FormattingEnabled = true;
+            this.comboBoxCustomer.Location = new System.Drawing.Point(91, 13);
+            this.comboBoxCustomer.Name = "comboBoxCustomer";
+            this.comboBoxCustomer.Size = new System.Drawing.Size(194, 21);
+            this.comboBoxCustomer.TabIndex = 4;
             // 
-            // comboBoxProduct
+            // comboBoxOutput
             // 
-            this.comboBoxProduct.FormattingEnabled = true;
-            this.comboBoxProduct.Location = new System.Drawing.Point(91, 43);
-            this.comboBoxProduct.Name = "comboBoxProduct";
-            this.comboBoxProduct.Size = new System.Drawing.Size(194, 21);
-            this.comboBoxProduct.TabIndex = 5;
-            this.comboBoxProduct.SelectedIndexChanged += new System.EventHandler(this.comboBoxProduct_SelectedIndexChanged);
+            this.comboBoxOutput.FormattingEnabled = true;
+            this.comboBoxOutput.Location = new System.Drawing.Point(91, 43);
+            this.comboBoxOutput.Name = "comboBoxOutput";
+            this.comboBoxOutput.Size = new System.Drawing.Size(194, 21);
+            this.comboBoxOutput.TabIndex = 5;
+            this.comboBoxOutput.SelectedIndexChanged += new System.EventHandler(this.comboBoxProduct_SelectedIndexChanged);
             // 
             // textBoxCount
             // 
@@ -132,8 +132,8 @@
             this.Controls.Add(this.save_Button);
             this.Controls.Add(this.textBoxSum);
             this.Controls.Add(this.textBoxCount);
-            this.Controls.Add(this.comboBoxProduct);
-            this.Controls.Add(this.comboBoxClient);
+            this.Controls.Add(this.comboBoxOutput);
+            this.Controls.Add(this.comboBoxCustomer);
             this.Controls.Add(this.SumLabel);
             this.Controls.Add(this.CountLabel);
             this.Controls.Add(this.ProductLabel);
@@ -152,8 +152,8 @@
         private System.Windows.Forms.Label ProductLabel;
         private System.Windows.Forms.Label CountLabel;
         private System.Windows.Forms.Label SumLabel;
-        private System.Windows.Forms.ComboBox comboBoxClient;
-        private System.Windows.Forms.ComboBox comboBoxProduct;
+        private System.Windows.Forms.ComboBox comboBoxCustomer;
+        private System.Windows.Forms.ComboBox comboBoxOutput;
         private System.Windows.Forms.TextBox textBoxCount;
         private System.Windows.Forms.TextBox textBoxSum;
         private System.Windows.Forms.Button save_Button;

@@ -38,7 +38,7 @@ namespace ConfectioneryShopForm {
                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (comboBoxComponent.SelectedValue == null) {
+            if (comboBoxDetail.SelectedValue == null) {
                 MessageBox.Show("Выберите компонент", "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
                 return;
@@ -46,8 +46,8 @@ namespace ConfectioneryShopForm {
             try {
                 if (model == null) {
                     model = new ConnectionBetweenDetailAndOutputViewModel {
-                        DetailID = Convert.ToInt32(comboBoxComponent.SelectedValue),
-                        DetailName = comboBoxComponent.Text,
+                        DetailID = Convert.ToInt32(comboBoxDetail.SelectedValue),
+                        DetailName = comboBoxDetail.Text,
                         Count = Convert.ToInt32(textBoxCount.Text)
                     };
                 } else {
@@ -67,18 +67,18 @@ namespace ConfectioneryShopForm {
             try {
                 List<DetailViewModel> list = service.getList();
                 if (list != null) {
-                    comboBoxComponent.DisplayMember = "ComponentName";
-                    comboBoxComponent.ValueMember = "Id";
-                    comboBoxComponent.DataSource = list;
-                    comboBoxComponent.SelectedItem = null;
+                    comboBoxDetail.DisplayMember = "DetailName";
+                    comboBoxDetail.ValueMember = "ID";
+                    comboBoxDetail.DataSource = list;
+                    comboBoxDetail.SelectedItem = null;
                 }
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             }
             if (model != null) {
-                comboBoxComponent.Enabled = false;
-                comboBoxComponent.SelectedValue = model.DetailID;
+                comboBoxDetail.Enabled = false;
+                comboBoxDetail.SelectedValue = model.DetailID;
                 textBoxCount.Text = model.Count.ToString();
             }
         }

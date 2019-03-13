@@ -12,30 +12,29 @@ using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
 
 namespace ConfectioneryShopForm {
-    public partial class FormDetails : Form {
+    public partial class FormStorages : Form {
 
         [Dependency]
         public new IUnityContainer Container { get; set; }
 
-        private readonly IDetailService service;
+        private readonly IStorageService service;
 
-        public FormDetails(IDetailService service) {
+        public FormStorages(IStorageService service) {
             InitializeComponent();
             this.service = service;
         }
 
         private void add_Button_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormDetail>();
+            var form = Container.Resolve<FormStorage>();
             if (form.ShowDialog() == DialogResult.OK) {
                 LoadData();
             }
-
         }
 
         private void change_Button_Click(object sender, EventArgs e) {
-            if (dataGridViewDetails.SelectedRows.Count == 1) {
-                var form = Container.Resolve<FormDetail>();
-                form.Id = Convert.ToInt32(dataGridViewDetails.SelectedRows[0].Cells[0].Value);
+            if (dataGridViewStorages.SelectedRows.Count == 1) {
+                var form = Container.Resolve<FormStorage>();
+                form.Id = Convert.ToInt32(dataGridViewStorages.SelectedRows[0].Cells[0].Value);
                 if (form.ShowDialog() == DialogResult.OK) {
                     LoadData();
                 }
@@ -43,11 +42,11 @@ namespace ConfectioneryShopForm {
         }
 
         private void delete_Button_Click(object sender, EventArgs e) {
-            if (dataGridViewDetails.SelectedRows.Count == 1) {
+            if (dataGridViewStorages.SelectedRows.Count == 1) {
                 if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
                MessageBoxIcon.Question) == DialogResult.Yes) {
                     int id =
-                   Convert.ToInt32(dataGridViewDetails.SelectedRows[0].Cells[0].Value);
+               Convert.ToInt32(dataGridViewStorages.SelectedRows[0].Cells[0].Value);
                     try {
                         service.delElem(id);
                     } catch (Exception ex) {
@@ -57,24 +56,23 @@ namespace ConfectioneryShopForm {
                     LoadData();
                 }
             }
-
         }
 
         private void update_Button_Click(object sender, EventArgs e) {
             LoadData();
         }
 
-        private void Components_Load(object sender, EventArgs e) {
+        private void FormStorages_Load(object sender, EventArgs e) {
             LoadData();
         }
 
         private void LoadData() {
             try {
-                List<DetailViewModel> list = service.getList();
+                List<StorageViewModel> list = service.getList();
                 if (list != null) {
-                    dataGridViewDetails.DataSource = list;
-                    dataGridViewDetails.Columns[0].Visible = false;
-                    dataGridViewDetails.Columns[1].AutoSizeMode =
+                    dataGridViewStorages.DataSource = list;
+                    dataGridViewStorages.Columns[0].Visible = false;
+                    dataGridViewStorages.Columns[1].AutoSizeMode =
                     DataGridViewAutoSizeColumnMode.Fill;
                 }
             } catch (Exception ex) {
