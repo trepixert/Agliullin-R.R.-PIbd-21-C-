@@ -9,7 +9,7 @@ using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.ViewModel;
 
 namespace ConfectioneryShopImplement.Implementations {
-    public class OutputServiceList {
+    public class OutputServiceList : IOutputService {
 
         private DataListSingleton source;
 
