@@ -31,9 +31,9 @@ namespace ConfectioneryShopForm {
             try {
                 List<OutputViewModel> list = service.getList();
                 if (list != null) {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].AutoSizeMode =
+                    dataGridViewOutputs.DataSource = list;
+                    dataGridViewOutputs.Columns[0].Visible = false;
+                    dataGridViewOutputs.Columns[1].AutoSizeMode =
                     DataGridViewAutoSizeColumnMode.Fill;
                 }
             } catch (Exception ex) {
@@ -50,22 +50,21 @@ namespace ConfectioneryShopForm {
         }
 
         private void change_Button_Click(object sender, EventArgs e) {
-            if (dataGridView.SelectedRows.Count == 1) {
+            if (dataGridViewOutputs.SelectedRows.Count == 1) {
                 var form = Container.Resolve<FormOutput>();
-                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                form.Id = Convert.ToInt32(dataGridViewOutputs.SelectedRows[0].Cells[0].Value);
                 if (form.ShowDialog() == DialogResult.OK) {
                     LoadData();
                 }
             }
-
         }
 
         private void delete_Button_Click(object sender, EventArgs e) {
-            if (dataGridView.SelectedRows.Count == 1) {
+            if (dataGridViewOutputs.SelectedRows.Count == 1) {
                 if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
                MessageBoxIcon.Question) == DialogResult.Yes) {
                     int id =
-               Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+               Convert.ToInt32(dataGridViewOutputs.SelectedRows[0].Cells[0].Value);
                     try {
                         service.delElem(id);
                     } catch (Exception ex) {

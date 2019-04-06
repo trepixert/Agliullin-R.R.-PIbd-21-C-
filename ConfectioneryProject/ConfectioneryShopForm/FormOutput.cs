@@ -49,12 +49,12 @@ namespace ConfectioneryShopForm {
         private void LoadData() {
             try {
                 if (productComponents != null) {
-                    dataGridView.DataSource = null;
-                    dataGridView.DataSource = productComponents;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[3].AutoSizeMode =
+                    dataGridViewOutputs.DataSource = null;
+                    dataGridViewOutputs.DataSource = productComponents;
+                    dataGridViewOutputs.Columns[0].Visible = false;
+                    dataGridViewOutputs.Columns[1].Visible = false;
+                    dataGridViewOutputs.Columns[2].Visible = false;
+                    dataGridViewOutputs.Columns[3].AutoSizeMode =
                     DataGridViewAutoSizeColumnMode.Fill;
                 }
             } catch (Exception ex) {
@@ -77,12 +77,12 @@ namespace ConfectioneryShopForm {
         }
 
         private void change_Button_Click(object sender, EventArgs e) {
-            if (dataGridView.SelectedRows.Count == 1) {
+            if (dataGridViewOutputs.SelectedRows.Count == 1) {
                 var form = Container.Resolve<FormDetailOutput>();
                 form.Model =
-               productComponents[dataGridView.SelectedRows[0].Cells[0].RowIndex];
+               productComponents[dataGridViewOutputs.SelectedRows[0].Cells[0].RowIndex];
                 if (form.ShowDialog() == DialogResult.OK) {
-                    productComponents[dataGridView.SelectedRows[0].Cells[0].RowIndex] =
+                    productComponents[dataGridViewOutputs.SelectedRows[0].Cells[0].RowIndex] =
                    form.Model;
                     LoadData();
                 }
@@ -90,12 +90,12 @@ namespace ConfectioneryShopForm {
         }
 
         private void delete_Button_Click(object sender, EventArgs e) {
-            if (dataGridView.SelectedRows.Count == 1) {
+            if (dataGridViewOutputs.SelectedRows.Count == 1) {
                 if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
                MessageBoxIcon.Question) == DialogResult.Yes) {
                     try {
 
-                        productComponents.RemoveAt(dataGridView.SelectedRows[0].Cells[0].RowIndex);
+                        productComponents.RemoveAt(dataGridViewOutputs.SelectedRows[0].Cells[0].RowIndex);
                     } catch (Exception ex) {
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                        MessageBoxIcon.Error);
