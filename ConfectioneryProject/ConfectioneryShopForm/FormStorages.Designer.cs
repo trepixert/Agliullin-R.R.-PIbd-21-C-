@@ -90,7 +90,7 @@
             this.Controls.Add(this.add_Button);
             this.Controls.Add(this.dataGridViewStorages);
             this.Name = "FormStorages";
-            this.Text = "FormStorages";
+            this.Text = "Склады";
             this.Load += new System.EventHandler(this.FormStorages_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorages)).EndInit();
             this.ResumeLayout(false);
