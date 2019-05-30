@@ -40,17 +40,6 @@ namespace ConfectionaryRestApi.Controllers
             _service.createOrder(model);
         }
 
-        /*[HttpPost]
-        public void TakeOrderInWork(OrderBindingModel model)
-        {
-            _service.TakeOrderInWork(model);
-        }
-        [HttpPost]
-        public void FinishOrder(OrderBindingModel model)
-        {
-            _service.FinishOrder(model);
-        }*/
-
         [HttpPost]
         public void StartWork()
         {
@@ -74,7 +63,7 @@ namespace ConfectionaryRestApi.Controllers
         }
 
         [HttpPost]
-        public void PutComponentOnStock(StorageDetailBindingModel model)
+        public void putDetailOnStorage(StorageDetailBindingModel model)
         {
             _service.putDetailOnStorage(model);
         }

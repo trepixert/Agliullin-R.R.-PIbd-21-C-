@@ -28,7 +28,7 @@ namespace ConfectioneryShopForm {
         {
             try
             {
-                List<CustomerViewModel> list = APICustomer.GetRequest<List<CustomerViewModel>>("api/Storage/GetList");
+                List<StorageViewModel> list = APICustomer.GetRequest<List<StorageViewModel>>("api/Storage/GetList");
                 if (list != null)
                 {
                     dataGridViewStorages.DataSource = list;
