@@ -47,7 +47,7 @@
             this.add_Button.TabIndex = 1;
             this.add_Button.Text = "Добавить";
             this.add_Button.UseVisualStyleBackColor = true;
-            this.add_Button.Click += new System.EventHandler(this.add_Button_Click);
+            this.add_Button.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // delete_Button
             // 
@@ -57,7 +57,7 @@
             this.delete_Button.TabIndex = 2;
             this.delete_Button.Text = "Удалить";
             this.delete_Button.UseVisualStyleBackColor = true;
-            this.delete_Button.Click += new System.EventHandler(this.delete_Button_Click);
+            this.delete_Button.Click += new System.EventHandler(this.buttonDel_Click);
             // 
             // change_Button
             // 
@@ -67,7 +67,7 @@
             this.change_Button.TabIndex = 3;
             this.change_Button.Text = "Изменить";
             this.change_Button.UseVisualStyleBackColor = true;
-            this.change_Button.Click += new System.EventHandler(this.change_Button_Click);
+            this.change_Button.Click += new System.EventHandler(this.buttonRef_Click);
             // 
             // update_Button
             // 
@@ -77,7 +77,7 @@
             this.update_Button.TabIndex = 4;
             this.update_Button.Text = "Обновить";
             this.update_Button.UseVisualStyleBackColor = true;
-            this.update_Button.Click += new System.EventHandler(this.update_Button_Click);
+            this.update_Button.Click += new System.EventHandler(this.buttonUpd_Click);
             // 
             // FormCustomers
             // 
@@ -91,7 +91,7 @@
             this.Controls.Add(this.dataGridViewOfCustomers);
             this.Name = "FormCustomers";
             this.Text = "Клиенты";
-            this.Load += new System.EventHandler(this.Clients_Load);
+            this.Load += new System.EventHandler(this.FormCustomers_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOfCustomers)).EndInit();
             this.ResumeLayout(false);
 

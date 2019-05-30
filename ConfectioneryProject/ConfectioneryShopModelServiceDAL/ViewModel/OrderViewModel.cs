@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -28,5 +29,12 @@ namespace ConfectioneryShopModelServiceDAL.ViewModel {
         public string DateCreate { get; set; }
         [DataMember]
         public string DateImplement { get; set; }
+
+        [DataMember]
+        public int? ImplementerId { get; set; }
+
+        [DataMember]
+        [DisplayName("Имя исполнителя")]
+        public string ImplementerName { get; set; }
     }
 }

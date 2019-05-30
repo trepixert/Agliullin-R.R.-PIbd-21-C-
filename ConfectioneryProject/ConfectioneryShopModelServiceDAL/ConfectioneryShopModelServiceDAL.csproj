@@ -45,6 +45,7 @@
     <Compile Include="BindingModel\CustomerBindingModel.cs" />
     <Compile Include="BindingModel\DetailBindingModel.cs" />
     <Compile Include="BindingModel\ConnectionBetweenDetailAndOutput.cs" />
+    <Compile Include="BindingModel\ImplementerBindingModel.cs" />
     <Compile Include="BindingModel\OrderBindingModel.cs" />
     <Compile Include="BindingModel\OutputBindingModel.cs" />
     <Compile Include="BindingModel\ReportBindingModel.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="BindingModel\StorageDetailBindingModel.cs" />
     <Compile Include="LogicInterface\ICustomerService.cs" />
     <Compile Include="LogicInterface\IDetailService.cs" />
+    <Compile Include="LogicInterface\IImplementerService.cs" />
     <Compile Include="LogicInterface\IMainService.cs" />
     <Compile Include="LogicInterface\IOutputService.cs" />
     <Compile Include="LogicInterface\IReportService.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\DetailViewModel.cs" />
     <Compile Include="ViewModel\ConnectionBetweenDetailAndOutputViewModel.cs" />
+    <Compile Include="ViewModel\ImplementerViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\OutputViewModel.cs" />
     <Compile Include="ViewModel\StorageDetailViewModel.cs" />

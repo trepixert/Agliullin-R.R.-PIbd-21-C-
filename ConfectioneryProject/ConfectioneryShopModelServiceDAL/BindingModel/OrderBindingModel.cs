@@ -15,6 +15,8 @@ namespace ConfectioneryShopModelServiceDAL.BindingModel {
         [DataMember]
         public int OutputID { get; set; }
         [DataMember]
+        public int? ImplementerId { get; set; }
+        [DataMember]
         public int Count { get; set; }
         [DataMember]
         public decimal Sum { get; set; }

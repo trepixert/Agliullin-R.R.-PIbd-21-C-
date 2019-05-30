@@ -84,6 +84,7 @@
     <Compile Include="ConfDBContext.cs" />
     <Compile Include="Implementation\CustomerServiceDB.cs" />
     <Compile Include="Implementation\DetailServiceDB.cs" />
+    <Compile Include="Implementation\ImplementerServiceDB.cs" />
     <Compile Include="Implementation\MainServiceDB.cs" />
     <Compile Include="Implementation\OutputServiceDB.cs" />
     <Compile Include="Implementation\ReportServiceDB.cs" />
