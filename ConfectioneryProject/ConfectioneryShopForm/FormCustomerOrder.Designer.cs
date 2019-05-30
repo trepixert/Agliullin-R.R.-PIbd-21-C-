@@ -54,7 +54,7 @@
             this.format_Button.TabIndex = 2;
             this.format_Button.Text = "Сформировать";
             this.format_Button.UseVisualStyleBackColor = true;
-            this.format_Button.Click += new System.EventHandler(this.format_Button_Click);
+            this.format_Button.Click += new System.EventHandler(this.buttonMake_Click);
             // 
             // toPDF_Button
             // 
@@ -64,7 +64,7 @@
             this.toPDF_Button.TabIndex = 3;
             this.toPDF_Button.Text = "в PDF";
             this.toPDF_Button.UseVisualStyleBackColor = true;
-            this.toPDF_Button.Click += new System.EventHandler(this.toPDF_Button_Click);
+            this.toPDF_Button.Click += new System.EventHandler(this.buttonToPdf_Click);
             // 
             // label1
             // 

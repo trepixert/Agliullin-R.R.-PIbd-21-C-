@@ -72,7 +72,7 @@
             this.cancel_Button.TabIndex = 4;
             this.cancel_Button.Text = "Отмена";
             this.cancel_Button.UseVisualStyleBackColor = true;
-            this.cancel_Button.Click += new System.EventHandler(this.cancel_Button_Click);
+            this.cancel_Button.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // save_Button
             // 
@@ -82,7 +82,7 @@
             this.save_Button.TabIndex = 5;
             this.save_Button.Text = "Сохранить";
             this.save_Button.UseVisualStyleBackColor = true;
-            this.save_Button.Click += new System.EventHandler(this.save_Button_Click);
+            this.save_Button.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // FormDetailOutput
             // 
@@ -97,7 +97,7 @@
             this.Controls.Add(this.textBoxCount);
             this.Name = "FormDetailOutput";
             this.Text = "Компонент изделия";
-            this.Load += new System.EventHandler(this.FormProductComponent_Load);
+            this.Load += new System.EventHandler(this.FormDetailOutput_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

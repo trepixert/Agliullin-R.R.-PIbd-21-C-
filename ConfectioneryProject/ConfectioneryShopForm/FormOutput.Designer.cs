@@ -47,7 +47,7 @@
             this.update_Button.TabIndex = 14;
             this.update_Button.Text = "Обновить";
             this.update_Button.UseVisualStyleBackColor = true;
-            this.update_Button.Click += new System.EventHandler(this.update_Button_Click);
+            this.update_Button.Click += new System.EventHandler(this.buttonUpd_Click);
             // 
             // change_Button
             // 
@@ -57,7 +57,7 @@
             this.change_Button.TabIndex = 13;
             this.change_Button.Text = "Изменить";
             this.change_Button.UseVisualStyleBackColor = true;
-            this.change_Button.Click += new System.EventHandler(this.change_Button_Click);
+            this.change_Button.Click += new System.EventHandler(this.buttonRef_Click);
             // 
             // delete_Button
             // 
@@ -67,7 +67,7 @@
             this.delete_Button.TabIndex = 12;
             this.delete_Button.Text = "Удалить";
             this.delete_Button.UseVisualStyleBackColor = true;
-            this.delete_Button.Click += new System.EventHandler(this.delete_Button_Click);
+            this.delete_Button.Click += new System.EventHandler(this.buttonDel_Click);
             // 
             // add_Button
             // 
@@ -77,7 +77,7 @@
             this.add_Button.TabIndex = 11;
             this.add_Button.Text = "Добавить";
             this.add_Button.UseVisualStyleBackColor = true;
-            this.add_Button.Click += new System.EventHandler(this.add_Button_Click);
+            this.add_Button.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // groupBox
             // 
@@ -141,7 +141,7 @@
             this.save_Button.TabIndex = 20;
             this.save_Button.Text = "Сохранить";
             this.save_Button.UseVisualStyleBackColor = true;
-            this.save_Button.Click += new System.EventHandler(this.save_Button_Click);
+            this.save_Button.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // cancel_Button
             // 
@@ -151,7 +151,7 @@
             this.cancel_Button.TabIndex = 21;
             this.cancel_Button.Text = "Отмена";
             this.cancel_Button.UseVisualStyleBackColor = true;
-            this.cancel_Button.Click += new System.EventHandler(this.cancel_Button_Click);
+            this.cancel_Button.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // FormOutput
             // 
@@ -167,7 +167,7 @@
             this.Controls.Add(this.groupBox);
             this.Name = "FormOutput";
             this.Text = "Изделие";
-            this.Load += new System.EventHandler(this.FormProduct_Load);
+            this.Load += new System.EventHandler(this.FormOutuut_Load);
             this.groupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOutputs)).EndInit();
             this.ResumeLayout(false);

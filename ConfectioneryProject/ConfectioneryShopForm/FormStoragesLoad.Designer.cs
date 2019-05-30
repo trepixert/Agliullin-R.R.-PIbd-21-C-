@@ -39,7 +39,7 @@
             this.saveToExcel_Button.TabIndex = 0;
             this.saveToExcel_Button.Text = "Сохранить в Excel";
             this.saveToExcel_Button.UseVisualStyleBackColor = true;
-            this.saveToExcel_Button.Click += new System.EventHandler(this.saveToExcel_Button_Click);
+            this.saveToExcel_Button.Click += new System.EventHandler(this.buttonSaveToExcel_Click);
             // 
             // dataGridView
             // 

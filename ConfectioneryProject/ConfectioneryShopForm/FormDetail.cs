@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
@@ -15,63 +14,71 @@ using ConfectioneryShopModelServiceDAL.ViewModel;
 namespace ConfectioneryShopForm {
     public partial class FormDetail : Form {
 
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
         public int Id { set { id = value; } }
-
-        private readonly IDetailService service;
 
         private int? id;
 
-        public FormDetail(IDetailService service) {
+        public FormDetail()
+        {
             InitializeComponent();
-            this.service = service;
         }
 
-        private void Component_Load(object sender, EventArgs e) {
-            if (id.HasValue) {
-                try {
-                    DetailViewModel view = service.getElement(id.Value);
-                    if (view != null) {
-                        textBoxDetail.Text = view.DetailName;
-                    }
-                } catch (Exception ex) {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+        private void FormDetail_Load(object sender, EventArgs e)
+        {
+            if (id.HasValue)
+            {
+                try
+                {
+                    DetailViewModel detail =
+                    APICustomer.GetRequest<DetailViewModel>("api/Customer/Get/" + id.Value);
+                    textBoxDetail.Text = detail.DetailName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        private void save_Button_Click(object sender, EventArgs e) {
-            if (string.IsNullOrEmpty(textBoxDetail.Text)) {
-                MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxDetail.Text))
+            {
+                MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            try {
-                if (id.HasValue) {
-                    service.updElem(new DetailBindingModel {
+            try
+            {
+                if (id.HasValue)
+                {
+                    APICustomer.PostRequest<DetailBindingModel,
+                    bool>("api/Detail/UpdElement", new DetailBindingModel
+                    {
                         ID = id.Value,
                         DetailName = textBoxDetail.Text
                     });
-                } else {
-                    service.addElem(new DetailBindingModel
+                }
+                else
+                {
+                    APICustomer.PostRequest<DetailBindingModel,
+                    bool>("api/Detail/AddElement", new DetailBindingModel
                     {
-                     DetailName = textBoxDetail.Text
+                        DetailName = textBoxDetail.Text
                     });
                 }
-                MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-               MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
-            } catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void cancel_Button_Click(object sender, EventArgs e) {
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
             DialogResult = DialogResult.Cancel;
             Close();
         }
