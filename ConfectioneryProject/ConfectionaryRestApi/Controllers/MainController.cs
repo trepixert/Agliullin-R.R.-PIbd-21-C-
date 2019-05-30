@@ -51,5 +51,6 @@ namespace ConfectionaryRestApi.Controllers
         {
             _service.putDetailOnStorage(model);
         }
-    }
+    }
+
 }
