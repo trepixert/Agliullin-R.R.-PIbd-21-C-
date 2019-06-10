@@ -14,7 +14,7 @@ namespace ConfectioneryShopImplement.Implementations {
             source = DataListSingleton.getInstance();
         }
 
-        public List<DetailViewModel> getList() {
+        public List<DetailViewModel> GetList() {
             List<DetailViewModel> result = source.Details.Select(rec => new DetailViewModel {
                 ID = rec.ID,
                 DetailName = rec.DetailName
@@ -22,7 +22,7 @@ namespace ConfectioneryShopImplement.Implementations {
             return result;
         }
 
-        public DetailViewModel getElement(int id) {
+        public DetailViewModel GetElement(int id) {
             Detail element = source.Details.FirstOrDefault(rec => rec.ID == id);
             if ( element != null ) {
                 return new DetailViewModel {
@@ -34,7 +34,7 @@ namespace ConfectioneryShopImplement.Implementations {
             throw new Exception("Элемент не найден");
         }
 
-        public void addElem(DetailBindingModel model) {
+        public void AddElem(DetailBindingModel model) {
             Detail element = source.Details.FirstOrDefault(rec => rec.DetailName == model.DetailName);
             if ( element != null ) {
                 throw new Exception("Уже есть компонент с таким названием");
@@ -50,7 +50,7 @@ namespace ConfectioneryShopImplement.Implementations {
             });
         }
 
-        public void updElem(DetailBindingModel model) {
+        public void UpdElem(DetailBindingModel model) {
             Detail element = source.Details.FirstOrDefault(rec => rec.DetailName ==
                                                                   model.DetailName && rec.ID != model.ID);
             if ( element != null ) {
@@ -65,7 +65,7 @@ namespace ConfectioneryShopImplement.Implementations {
             element.DetailName = model.DetailName;
         }
 
-        public void delElem(int id) {
+        public void DelElem(int id) {
             Detail element = source.Details.FirstOrDefault(rec => rec.ID == id);
             if ( element != null ) {
                 source.Details.Remove(element);
