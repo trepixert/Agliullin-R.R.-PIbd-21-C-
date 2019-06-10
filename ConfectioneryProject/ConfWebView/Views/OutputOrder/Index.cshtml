@@ -41,41 +41,41 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerFIO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OutputID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OutputName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Count)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateImplement)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach ( var item in Model ) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerFIO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OutputID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OutputName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateImplement)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.ID}) |
+                @Html.ActionLink("Details", "Details", new {id = item.ID}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.ID})
+            </td>
+        </tr>
+    }
 
 </table>

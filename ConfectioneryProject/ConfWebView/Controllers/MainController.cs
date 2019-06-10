@@ -1,26 +1,22 @@
-﻿using ConfectioneryShopModelServiceDAL.BindingModel;
+﻿using System;
+using System.Web.Mvc;
+using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
-using System;
-using System.Web.Mvc;
 
-namespace ConfWebView.Controllers
-{
-    public class MainController : Controller
-    {
+namespace ConfWebView.Controllers {
+    public class MainController : Controller {
         private IOutputService outputService = Globals.OutputService;
         private IMainService mainService = Globals.MainService;
         private ICustomerService customerService = Globals.CustomerService;
 
 
         // GET: PizzaOrder
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View(mainService.getList());
         }
 
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             var outputs = new SelectList(outputService.getList(), "ID", "OutputName");
             var customers = new SelectList(customerService.getList(), "Id", "CustomerFIO");
             ViewBag.Outputs = outputs;
@@ -29,49 +25,41 @@ namespace ConfWebView.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePost()
-        {
+        public ActionResult CreatePost() {
             var customerId = int.Parse(Request["CustomerID"]);
             var outputID = int.Parse(Request["OutputID"]);
             var outputCount = int.Parse(Request["Count"]);
             var totalCost = CalcSum(outputID, outputCount);
 
-            mainService.createOrder(new OrderBindingModel
-            {
+            mainService.createOrder(new OrderBindingModel {
                 CustomerID = customerId,
                 OutputID = outputID,
                 Count = outputCount,
                 Sum = totalCost
-
             });
             return RedirectToAction("Index");
         }
 
-        private Decimal CalcSum(int outputID, int outputCount)
-        {
+        private Decimal CalcSum(int outputID, int outputCount) {
             OutputViewModel output = outputService.getElement(outputID);
             return outputCount * output.Price;
         }
 
-        public ActionResult SetStatus(int id, string status)
-        {
-            try
-            {
-                switch (status)
-                {
+        public ActionResult SetStatus(int id, string status) {
+            try {
+                switch ( status ) {
                     case "Processing":
-                        mainService.takeOrderInWork(new OrderBindingModel { ID = id });
+                        mainService.takeOrderInWork(new OrderBindingModel {ID = id});
                         break;
                     case "Ready":
-                        mainService.finishOrder(new OrderBindingModel { ID = id });
+                        mainService.finishOrder(new OrderBindingModel {ID = id});
                         break;
                     case "Paid":
-                        mainService.payOrder(new OrderBindingModel { ID = id });
+                        mainService.payOrder(new OrderBindingModel {ID = id});
                         break;
                 }
             }
-            catch (Exception ex)
-            {
+            catch ( Exception ex ) {
                 ModelState.AddModelError("Error", ex.Message);
             }
 

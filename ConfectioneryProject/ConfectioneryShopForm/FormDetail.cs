@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
+using Unity;
 
 namespace ConfectioneryShopForm {
     public partial class FormDetail : Form {
+        [Dependency] public new IUnityContainer Container { get; set; }
 
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-
-        public int Id { set { id = value; } }
+        public int Id {
+            set { id = value; }
+        }
 
         private readonly IDetailService service;
 
@@ -30,44 +23,48 @@ namespace ConfectioneryShopForm {
         }
 
         private void Component_Load(object sender, EventArgs e) {
-            if (id.HasValue) {
+            if ( id.HasValue ) {
                 try {
                     DetailViewModel view = service.getElement(id.Value);
-                    if (view != null) {
+                    if ( view != null ) {
                         textBoxComponent.Text = view.DetailName;
                     }
-                } catch (Exception ex) {
+                }
+                catch ( Exception ex ) {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+                    MessageBoxIcon.Error);
                 }
             }
         }
 
         private void save_Button_Click(object sender, EventArgs e) {
-            if (string.IsNullOrEmpty(textBoxComponent.Text)) {
+            if ( string.IsNullOrEmpty(textBoxComponent.Text) ) {
                 MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+                MessageBoxIcon.Error);
                 return;
             }
+
             try {
-                if (id.HasValue) {
+                if ( id.HasValue ) {
                     service.updElem(new DetailBindingModel {
                         ID = id.Value,
                         DetailName = textBoxComponent.Text
                     });
-                } else {
-                    service.addElem(new DetailBindingModel
-                    {
-                     DetailName = textBoxComponent.Text
+                }
+                else {
+                    service.addElem(new DetailBindingModel {
+                        DetailName = textBoxComponent.Text
                     });
                 }
+
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-               MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
-            } catch (Exception ex) {
+            }
+            catch ( Exception ex ) {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+                MessageBoxIcon.Error);
             }
         }
 
