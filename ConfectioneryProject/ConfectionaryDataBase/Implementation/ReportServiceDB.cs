@@ -1,19 +1,28 @@
-﻿using ConfectioneryShopModelServiceDAL.BindingModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.SqlServer;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using ConfectionaryDataBase.Properties;
+using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Interop.Word;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.SqlServer;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.util;
-using System.Data.Entity;
+using Application = Microsoft.Office.Interop.Word.Application;
+using Document = Microsoft.Office.Interop.Word.Document;
+using Font = iTextSharp.text.Font;
+using Paragraph = iTextSharp.text.Paragraph;
+using Range = Microsoft.Office.Interop.Excel.Range;
+using XlBorderWeight = Microsoft.Office.Interop.Excel.XlBorderWeight;
+using XlColorIndex = Microsoft.Office.Interop.Excel.XlColorIndex;
+using XlHAlign = Microsoft.Office.Interop.Excel.XlHAlign;
+using XlLineStyle = Microsoft.Office.Interop.Excel.XlLineStyle;
+using XlVAlign = Microsoft.Office.Interop.Excel.XlVAlign;
 
 namespace ConfectionaryDataBase.Implementation {
     public class ReportServiceDB : IReportService {
@@ -24,16 +33,17 @@ namespace ConfectionaryDataBase.Implementation {
         }
 
         public void SaveOutputPrice(ReportBindingModel model) {
-            if (File.Exists(model.FileName)) {
+            if ( File.Exists(model.FileName) ) {
                 File.Delete(model.FileName);
             }
-            var winword = new Microsoft.Office.Interop.Word.Application();
+
+            var winword = new Application();
             try {
-                object missing = System.Reflection.Missing.Value;
+                object missing = Missing.Value;
                 //создаем документ
-                Microsoft.Office.Interop.Word.Document document =
-                winword.Documents.Add(ref missing, ref missing, ref missing, ref
-               missing);
+                Document document =
+                    winword.Documents.Add(ref missing, ref missing, ref missing, ref
+                    missing);
                 //получаем ссылку на параграф
                 var paragraph = document.Paragraphs.Add(missing);
                 var range = paragraph.Range;
@@ -58,7 +68,7 @@ namespace ConfectionaryDataBase.Implementation {
                 var paragraphTable = document.Paragraphs.Add(Type.Missing);
                 var rangeTable = paragraphTable.Range;
                 var table = document.Tables.Add(rangeTable, outputs.Count, 2, ref
-               missing, ref missing);
+                missing, ref missing);
                 font = table.Range.Font;
                 font.Size = 14;
                 font.Name = "Times New Roman";
@@ -66,10 +76,11 @@ namespace ConfectionaryDataBase.Implementation {
                 paragraphTableFormat.LineSpacingRule = WdLineSpacing.wdLineSpaceSingle;
                 paragraphTableFormat.SpaceAfter = 0;
                 paragraphTableFormat.SpaceBefore = 0;
-                for (int i = 0; i < outputs.Count; ++i) {
+                for ( int i = 0; i < outputs.Count; ++i ) {
                     table.Cell(i + 1, 1).Range.Text = outputs[i].OutputName;
                     table.Cell(i + 1, 2).Range.Text = outputs[i].Price.ToString();
                 }
+
                 //задаем границы таблицы
                 table.Borders.InsideLineStyle = WdLineStyle.wdLineStyleInset;
                 table.Borders.OutsideLineStyle = WdLineStyle.wdLineStyleSingle;
@@ -93,56 +104,60 @@ namespace ConfectionaryDataBase.Implementation {
                 ref missing, ref missing, ref missing, ref missing,
                 ref missing);
                 document.Close(ref missing, ref missing, ref missing);
-            } catch (Exception) {
+            }
+            catch ( Exception ) {
                 throw;
-            } finally {
+            }
+            finally {
                 winword.Quit();
             }
         }
 
-        public List <StorageLoadViewModel> GetStorageLoad() {
+        public List<StorageLoadViewModel> GetStorageLoad() {
             return context.Storages
                 .ToList()
                 .GroupJoin(
-                    context.StorageDetails
+                context.StorageDetails
                     .Include(r => r.Detail)
                     .ToList(),
-                    stock => stock,
-                    stockComponent => stockComponent.Storage,
-                    (stock, stockCompList) =>
-                 new StorageLoadViewModel {
-                     StorageName = stock.StorageName,
-                     TotalCount = stockCompList.Sum(r => r.Count),
-                     Components = stockCompList.Select(r => new Tuple<string,
-                    int>(r.Detail.DetailName, r.Count))
-                 })
-                 .ToList();
+                stock => stock,
+                stockComponent => stockComponent.Storage,
+                (stock, stockCompList) =>
+                    new StorageLoadViewModel {
+                        StorageName = stock.StorageName,
+                        TotalCount = stockCompList.Sum(r => r.Count),
+                        Components = stockCompList.Select(r => new Tuple<string,
+                            int>(r.Detail.DetailName, r.Count))
+                    })
+                .ToList();
         }
 
         public void SaveStorageLoad(ReportBindingModel model) {
             var excel = new Microsoft.Office.Interop.Excel.Application();
             try {
                 //или создаем excel-файл, или открываем существующий
-                if (File.Exists(model.FileName)) {
+                if ( File.Exists(model.FileName) ) {
                     excel.Workbooks.Open(model.FileName, Type.Missing, Type.Missing,
-                   Type.Missing,
+                    Type.Missing,
                     Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                   Type.Missing,
+                    Type.Missing,
                     Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                   Type.Missing,
+                    Type.Missing,
                     Type.Missing);
-                } else {
+                }
+                else {
                     excel.SheetsInNewWorkbook = 1;
                     excel.Workbooks.Add(Type.Missing);
                     excel.Workbooks[1].SaveAs(model.FileName, XlFileFormat.xlExcel8,
                     Type.Missing,
-                     Type.Missing, false, false, XlSaveAsAccessMode.xlNoChange,
+                    Type.Missing, false, false, XlSaveAsAccessMode.xlNoChange,
                     Type.Missing,
-                     Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                    Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 }
+
                 Sheets excelsheets = excel.Workbooks[1].Worksheets;
                 //Получаем ссылку на лист
-                var excelworksheet = (Worksheet)excelsheets.get_Item(1);
+                var excelworksheet = (Worksheet) excelsheets.get_Item(1);
                 //очищаем ячейки
                 excelworksheet.Cells.Clear();
                 //настройки страницы
@@ -150,8 +165,8 @@ namespace ConfectionaryDataBase.Implementation {
                 excelworksheet.PageSetup.CenterHorizontally = true;
                 excelworksheet.PageSetup.CenterVertically = true;
                 //получаем ссылку на первые 3 ячейки
-                Microsoft.Office.Interop.Excel.Range excelcells =
-               excelworksheet.get_Range("A1", "C1");
+                Range excelcells =
+                    excelworksheet.get_Range("A1", "C1");
                 //объединяем их
                 excelcells.Merge(Type.Missing);
                 //задаем текст, настройки шрифта и ячейки
@@ -159,9 +174,9 @@ namespace ConfectionaryDataBase.Implementation {
                 excelcells.Value2 = "Загруженность складов";
                 excelcells.RowHeight = 25;
                 excelcells.HorizontalAlignment =
-               Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                    XlHAlign.xlHAlignCenter;
                 excelcells.VerticalAlignment =
-                    Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
+                    XlVAlign.xlVAlignCenter;
                 excelcells.Font.Name = "Times New Roman";
                 excelcells.Font.Size = 14;
                 excelcells = excelworksheet.get_Range("A2", "C2");
@@ -169,46 +184,45 @@ namespace ConfectionaryDataBase.Implementation {
                 excelcells.Value2 = "на" + DateTime.Now.ToShortDateString();
                 excelcells.RowHeight = 20;
                 excelcells.HorizontalAlignment =
-               Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                    XlHAlign.xlHAlignCenter;
                 excelcells.VerticalAlignment =
-               Microsoft.Office.Interop.Excel.XlVAlign.xlVAlignCenter;
+                    XlVAlign.xlVAlignCenter;
                 excelcells.Font.Name = "Times New Roman";
                 excelcells.Font.Size = 12;
                 var dict = GetStorageLoad();
-                if (dict != null) {
+                if ( dict != null ) {
                     excelcells = excelworksheet.get_Range("C1", "C1");
-                    foreach (var elem in dict) {
+                    foreach ( var elem in dict ) {
                         //спускаемся на 2 ячейку вниз и 2 ячейкт влево
                         excelcells = excelcells.get_Offset(2, -2);
                         excelcells.ColumnWidth = 15;
                         excelcells.Value2 = elem.StorageName;
                         excelcells = excelcells.get_Offset(1, 1);
                         //обводим границы
-                        if (elem.Components.Count() > 0) {
+                        if ( elem.Components.Count() > 0 ) {
                             //получаем ячейкт для выбеления рамки под таблицу
                             var excelBorder =
-                             excelworksheet.get_Range(excelcells,
-                             excelcells.get_Offset(elem.Components.Count()
-                            - 1, 1));
+                                excelworksheet.get_Range(excelcells,
+                                excelcells.get_Offset(elem.Components.Count()
+                                                      - 1, 1));
                             excelBorder.Borders.LineStyle =
-                           Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                                XlLineStyle.xlContinuous;
                             excelBorder.Borders.Weight =
-                           Microsoft.Office.Interop.Excel.XlBorderWeight.xlThin;
+                                XlBorderWeight.xlThin;
                             excelBorder.HorizontalAlignment = Constants.xlCenter;
                             excelBorder.VerticalAlignment = Constants.xlCenter;
-                            excelBorder.BorderAround(Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous,
-
-                            Microsoft.Office.Interop.Excel.XlBorderWeight.xlMedium,
-
-                            Microsoft.Office.Interop.Excel.XlColorIndex.xlColorIndexAutomatic,
-                             1);
-                            foreach (var listElem in elem.Components) {
+                            excelBorder.BorderAround(XlLineStyle.xlContinuous,
+                            XlBorderWeight.xlMedium,
+                            XlColorIndex.xlColorIndexAutomatic,
+                            1);
+                            foreach ( var listElem in elem.Components ) {
                                 excelcells.Value2 = listElem.Item1;
                                 excelcells.ColumnWidth = 10;
                                 excelcells.get_Offset(0, 1).Value2 = listElem.Item2;
                                 excelcells = excelcells.get_Offset(1, 0);
                             }
                         }
+
                         excelcells = excelcells.get_Offset(0, -1);
                         excelcells.Value2 = "Итого";
                         excelcells.Font.Bold = true;
@@ -217,11 +231,14 @@ namespace ConfectionaryDataBase.Implementation {
                         excelcells.Font.Bold = true;
                     }
                 }
+
                 //сохраняем
                 excel.Workbooks[1].Save();
-            } catch (Exception) {
+            }
+            catch ( Exception ) {
                 throw;
-            } finally {
+            }
+            finally {
                 //закрываем
                 excel.Quit();
             }
@@ -229,56 +246,57 @@ namespace ConfectionaryDataBase.Implementation {
 
         public List<CustomerOrdersModel> GetCustomerOrders(ReportBindingModel model) {
             return context.Orders
-            .Include(rec => rec.customer)
-           .Include(rec => rec.output)
-           .Where(rec => rec.DateCreate >= model.DateFrom &&
-           rec.DateCreate <= model.DateTo)
-            .Select(rec => new CustomerOrdersModel {
-                CustomerName = rec.customer.CustomerFIO,
-                DateCreate = SqlFunctions.DateName("dd", rec.DateCreate)
-           + " " +
-            SqlFunctions.DateName("mm", rec.DateCreate) +
-           " " +
-            SqlFunctions.DateName("yyyy",
-           rec.DateCreate),
-                OutputName = rec.output.OutputName,
-                Count = rec.Count,
-                Sum = rec.Sum,
-                Status = rec.Status.ToString()
-            })
-           .ToList();
+                .Include(rec => rec.Customer)
+                .Include(rec => rec.output)
+                .Where(rec => rec.DateCreate >= model.DateFrom &&
+                              rec.DateCreate <= model.DateTo)
+                .Select(rec => new CustomerOrdersModel {
+                    CustomerName = rec.Customer.CustomerFIO,
+                    DateCreate = SqlFunctions.DateName("dd", rec.DateCreate)
+                                 + " " +
+                                 SqlFunctions.DateName("mm", rec.DateCreate) +
+                                 " " +
+                                 SqlFunctions.DateName("yyyy",
+                                 rec.DateCreate),
+                    OutputName = rec.output.OutputName,
+                    Count = rec.Count,
+                    Sum = rec.Sum,
+                    Status = rec.Status.ToString()
+                })
+                .ToList();
         }
 
         public void SaveCustomerOrders(ReportBindingModel model) {
             //из ресрусов получаем шрифт для кирилицы
-            if (!File.Exists("TIMCYR.TTF")) {
-                File.WriteAllBytes("TIMCYR.TTF", Properties.Resources.TIMCYR);
+            if ( !File.Exists("TIMCYR.TTF") ) {
+                File.WriteAllBytes("TIMCYR.TTF", Resources.TIMCYR);
             }
+
             //открываем файл для работы
             FileStream fs = new FileStream(model.FileName, FileMode.OpenOrCreate,
-           FileAccess.Write);
+            FileAccess.Write);
             //создаем документ, задаем границы, связываем документ и поток
             iTextSharp.text.Document doc = new iTextSharp.text.Document();
             doc.SetMargins(0.5f, 0.5f, 0.5f, 0.5f);
             PdfWriter writer = PdfWriter.GetInstance(doc, fs);
             doc.Open();
             BaseFont baseFont = BaseFont.CreateFont("TIMCYR.TTF", BaseFont.IDENTITY_H,
-           BaseFont.NOT_EMBEDDED);
+            BaseFont.NOT_EMBEDDED);
             //вставляем заголовок
             var phraseTitle = new Phrase("Заказы клиентов",
             new iTextSharp.text.Font(baseFont, 16, iTextSharp.text.Font.BOLD));
-            iTextSharp.text.Paragraph paragraph = new
-           iTextSharp.text.Paragraph(phraseTitle) {
-                Alignment = Element.ALIGN_CENTER,
-                SpacingAfter = 12
-            };
+            Paragraph paragraph = new
+                Paragraph(phraseTitle) {
+                    Alignment = Element.ALIGN_CENTER,
+                    SpacingAfter = 12
+                };
             doc.Add(paragraph);
             var phrasePeriod = new Phrase("c " + model.DateFrom.Value.ToShortDateString()
-           +
-            " по " + model.DateTo.Value.ToShortDateString(),
-           new iTextSharp.text.Font(baseFont, 14,
-           iTextSharp.text.Font.BOLD));
-            paragraph = new iTextSharp.text.Paragraph(phrasePeriod) {
+                                               +
+                                               " по " + model.DateTo.Value.ToShortDateString(),
+            new Font(baseFont, 14,
+            Font.BOLD));
+            paragraph = new Paragraph(phrasePeriod) {
                 Alignment = Element.ALIGN_CENTER,
                 SpacingAfter = 12
             };
@@ -287,11 +305,11 @@ namespace ConfectionaryDataBase.Implementation {
             PdfPTable table = new PdfPTable(6) {
                 TotalWidth = 800F
             };
-            table.SetTotalWidth(new float[] { 160, 140, 160, 100, 100, 140 });
+            table.SetTotalWidth(new float[] {160, 140, 160, 100, 100, 140});
             //вставляем шапку
             PdfPCell cell = new PdfPCell();
-            var fontForCellBold = new iTextSharp.text.Font(baseFont, 10,
-           iTextSharp.text.Font.BOLD);
+            var fontForCellBold = new Font(baseFont, 10,
+            Font.BOLD);
             table.AddCell(new PdfPCell(new Phrase("ФИО клиента", fontForCellBold)) {
                 HorizontalAlignment = Element.ALIGN_CENTER
             });
@@ -312,8 +330,8 @@ namespace ConfectionaryDataBase.Implementation {
             });
             //заполняем таблицу
             var list = GetCustomerOrders(model);
-            var fontForCells = new iTextSharp.text.Font(baseFont, 10);
-            for (int i = 0; i < list.Count; i++) {
+            var fontForCells = new Font(baseFont, 10);
+            for ( int i = 0; i < list.Count; i++ ) {
                 cell = new PdfPCell(new Phrase(list[i].CustomerName, fontForCells));
                 table.AddCell(cell);
                 cell = new PdfPCell(new Phrase(list[i].DateCreate, fontForCells));
@@ -329,6 +347,7 @@ namespace ConfectionaryDataBase.Implementation {
                 cell = new PdfPCell(new Phrase(list[i].Status, fontForCells));
                 table.AddCell(cell);
             }
+
             //вставляем итого
             cell = new PdfPCell(new Phrase("Итого:", fontForCellBold)) {
                 HorizontalAlignment = Element.ALIGN_RIGHT,
@@ -337,7 +356,7 @@ namespace ConfectionaryDataBase.Implementation {
             };
             table.AddCell(cell);
             cell = new PdfPCell(new Phrase(list.Sum(rec => rec.Sum).ToString(),
-           fontForCellBold)) {
+            fontForCellBold)) {
                 HorizontalAlignment = Element.ALIGN_RIGHT,
                 Border = 0
             };

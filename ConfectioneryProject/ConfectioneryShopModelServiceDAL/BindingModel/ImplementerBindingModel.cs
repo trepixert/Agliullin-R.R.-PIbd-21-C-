@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
-namespace ConfectioneryShopModelServiceDAL.BindingModel
-{
+namespace ConfectioneryShopModelServiceDAL.BindingModel {
     [DataContract]
-    public class ImplementerBindingModel
-    {
-        [DataMember]
-        public int Id { get; set; }
+    public class ImplementerBindingModel {
+        [DataMember] public int Id { get; set; }
 
-        [DataMember]
-        public string ImplementerFIO { get; set; }
+        [DataMember] public string ImplementerFIO { get; set; }
     }
 }

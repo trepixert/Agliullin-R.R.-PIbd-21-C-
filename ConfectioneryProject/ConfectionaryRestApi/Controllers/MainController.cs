@@ -1,54 +1,43 @@
-﻿using ConfectionaryRestApi.Services;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Http;
+using ConfectionaryRestApi.Services;
 using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 
-namespace ConfectionaryRestApi.Controllers
-{
-    public class MainController : ApiController
-    {
+namespace ConfectionaryRestApi.Controllers {
+    public class MainController : ApiController {
         private readonly IMainService _service;
 
         private readonly IImplementerService _serviceImplementer;
 
-        public MainController(IMainService service, IImplementerService serviceImplementer)
-        {
+        public MainController(IMainService service, IImplementerService serviceImplementer) {
             _service = service;
             _serviceImplementer = serviceImplementer;
         }
 
         [HttpGet]
-        public IHttpActionResult GetList()
-        {
-            var list = _service.getList();
-            if (list == null)
-            {
+        public IHttpActionResult GetList() {
+            var list = _service.GetList();
+            if ( list == null ) {
                 InternalServerError(new Exception("Нет данных"));
             }
+
             return Ok(list);
         }
 
         [HttpPost]
-        public void CreateOrder(OrderBindingModel model)
-        {
-            _service.createOrder(model);
+        public void CreateOrder(OrderBindingModel model) {
+            _service.CreateOrder(model);
         }
 
         [HttpPost]
-        public void StartWork()
-        {
+        public void StartWork() {
             List<OrderViewModel> orders = _service.GetFreeOrders();
-            foreach (var order in orders)
-            {
+            foreach ( var order in orders ) {
                 ImplementerViewModel impl = _serviceImplementer.GetFreeWorker();
-                if (impl == null)
-                {
+                if ( impl == null ) {
                     throw new Exception("Нет сотрудников");
                 }
 
@@ -57,15 +46,13 @@ namespace ConfectionaryRestApi.Controllers
         }
 
         [HttpPost]
-        public void PayOrder(OrderBindingModel model)
-        {
-            _service.payOrder(model);
+        public void PayOrder(OrderBindingModel model) {
+            _service.PayOrder(model);
         }
 
         [HttpPost]
-        public void putDetailOnStorage(StorageDetailBindingModel model)
-        {
-            _service.putDetailOnStorage(model);
+        public void putDetailOnStorage(StorageDetailBindingModel model) {
+            _service.PutDetailOnStorage(model);
         }
     }
 }

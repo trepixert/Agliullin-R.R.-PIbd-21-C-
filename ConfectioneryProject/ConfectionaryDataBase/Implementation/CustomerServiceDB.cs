@@ -1,69 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ConfectioneryShopModel;
+using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
-using ConfectioneryShopModelServiceDAL.BindingModel;
-using ConfectioneryProject;
 
 namespace ConfectionaryDataBase.Implementation {
     public class CustomerServiceDB : ICustomerService {
         private ConfDBContext context;
+
         public CustomerServiceDB(ConfDBContext context) {
             this.context = context;
         }
-        public List<CustomerViewModel> getList() {
+
+        public List<CustomerViewModel> GetList() {
             List<CustomerViewModel> result = context.Customers.Select(rec => new
-           CustomerViewModel {
-                ID = rec.ID,
-                CustomerFIO = rec.CustomerFIO
-            })
-            .ToList();
+                    CustomerViewModel {
+                        ID = rec.ID,
+                        CustomerFIO = rec.CustomerFIO,
+                        Mail = rec.Mail
+                    })
+                .ToList();
             return result;
         }
-        public CustomerViewModel getElement(int id) {
+
+        public CustomerViewModel GetElement(int id) {
             Customer element = context.Customers.FirstOrDefault(rec => rec.ID == id);
-            if (element != null) {
+            if ( element != null ) {
                 return new CustomerViewModel {
                     ID = element.ID,
-                    CustomerFIO = element.CustomerFIO
+                    CustomerFIO = element.CustomerFIO,
+                    Mail = element.Mail,
+                    Messages = context.MessageInfos
+                        .Where(recM => recM.CustomerId == element.ID)
+                        .Select(recM => new MessageInfoViewModel {
+                            MessageId = recM.MessageId,
+                            DateDelivery = recM.DateDelivery,
+                            Subject = recM.Subject,
+                            Body = recM.Body
+                        })
+                        .ToList()
                 };
             }
+
             throw new Exception("Элемент не найден");
         }
-        public void addElem(CustomerBindingModel model) {
+
+        public void AddElem(CustomerBindingModel model) {
             Customer element = context.Customers.FirstOrDefault(rec => rec.CustomerFIO ==
-           model.CustomerFIO);
-            if (element != null) {
+                                                                       model.CustomerFIO);
+            if ( element != null ) {
                 throw new Exception("Уже есть клиент с таким ФИО");
             }
+
             context.Customers.Add(new Customer {
-                CustomerFIO = model.CustomerFIO
+                CustomerFIO = model.CustomerFIO,
+                Mail = model.Mail
             });
             context.SaveChanges();
         }
 
-        public void updElem(CustomerBindingModel model) {
+        public void UpdElem(CustomerBindingModel model) {
             Customer element = context.Customers.FirstOrDefault(rec => rec.CustomerFIO ==
-           model.CustomerFIO && rec.ID != model.ID);
-            if (element != null) {
+                                                                       model.CustomerFIO && rec.ID != model.ID);
+            if ( element != null ) {
                 throw new Exception("Уже есть клиент с таким ФИО");
             }
+
             element = context.Customers.FirstOrDefault(rec => rec.ID == model.ID);
-            if (element == null) {
+            if ( element == null ) {
                 throw new Exception("Элемент не найден");
             }
+
             element.CustomerFIO = model.CustomerFIO;
+            element.Mail = model.Mail;
             context.SaveChanges();
         }
-        public void delElem(int id) {
+
+        public void DelElem(int id) {
             Customer element = context.Customers.FirstOrDefault(rec => rec.ID == id);
-            if (element != null) {
+            if ( element != null ) {
                 context.Customers.Remove(element);
                 context.SaveChanges();
-            } else {
+            }
+            else {
                 throw new Exception("Элемент не найден");
             }
         }
