@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
+using Unity;
 
 namespace ConfectioneryShopForm {
     public partial class FormCustomers : Form {
-
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
+        [Dependency] public new IUnityContainer Container { get; set; }
 
         private readonly ICustomerService service;
 
@@ -30,48 +22,51 @@ namespace ConfectioneryShopForm {
 
         private void LoadData() {
             try {
-                List<CustomerViewModel> list = service.getList();
-                if (list != null) {
+                List<CustomerViewModel> list = service.GetList();
+                if ( list != null ) {
                     dataGridViewOfClients.DataSource = list;
                     dataGridViewOfClients.Columns[0].Visible = false;
                     dataGridViewOfClients.Columns[1].AutoSizeMode =
-                    DataGridViewAutoSizeColumnMode.Fill;
+                        DataGridViewAutoSizeColumnMode.Fill;
                 }
-            } catch (Exception ex) {
+            }
+            catch ( Exception ex ) {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-               MessageBoxIcon.Error);
+                MessageBoxIcon.Error);
             }
         }
 
         private void add_Button_Click(object sender, EventArgs e) {
             var form = Container.Resolve<FormCustomer>();
-            if (form.ShowDialog() == DialogResult.OK) {
+            if ( form.ShowDialog() == DialogResult.OK ) {
                 LoadData();
             }
         }
 
         private void change_Button_Click(object sender, EventArgs e) {
-            if (dataGridViewOfClients.SelectedRows.Count == 1) {
+            if ( dataGridViewOfClients.SelectedRows.Count == 1 ) {
                 var form = Container.Resolve<FormCustomer>();
                 form.Id = Convert.ToInt32(dataGridViewOfClients.SelectedRows[0].Cells[0].Value);
-                if (form.ShowDialog() == DialogResult.OK) {
+                if ( form.ShowDialog() == DialogResult.OK ) {
                     LoadData();
                 }
             }
         }
 
         private void delete_Button_Click(object sender, EventArgs e) {
-            if (dataGridViewOfClients.SelectedRows.Count == 1) {
-                if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
-               MessageBoxIcon.Question) == DialogResult.Yes) {
+            if ( dataGridViewOfClients.SelectedRows.Count == 1 ) {
+                if ( MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
+                     MessageBoxIcon.Question) == DialogResult.Yes ) {
                     int id =
-                   Convert.ToInt32(dataGridViewOfClients.SelectedRows[0].Cells[0].Value);
+                        Convert.ToInt32(dataGridViewOfClients.SelectedRows[0].Cells[0].Value);
                     try {
-                        service.delElem(id);
-                    } catch (Exception ex) {
-                       MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-MessageBoxIcon.Error);
+                        service.DelElem(id);
                     }
+                    catch ( Exception ex ) {
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    }
+
                     LoadData();
                 }
             }
