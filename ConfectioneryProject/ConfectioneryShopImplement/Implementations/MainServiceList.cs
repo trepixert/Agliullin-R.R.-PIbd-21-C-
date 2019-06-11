@@ -1,62 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ConfectioneryProject;
-using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
+using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.ViewModel;
+using ConfectioneryShopModel;
 
 namespace ConfectioneryShopImplement.Implementations {
     public class MainServiceList : IMainService {
         private DataListSingleton source;
-
         public MainServiceList() {
             source = DataListSingleton.getInstance();
         }
-
         public List<OrderViewModel> GetList() {
-            List<OrderViewModel> result = new List<OrderViewModel>();
-            for ( int i = 0; i < source.Orders.Count; ++i ) {
-                string clientFIO = string.Empty;
-                for ( int j = 0; j < source.Customers.Count; ++j ) {
-                    if ( source.Customers[j].ID == source.Orders[i].CustomerID ) {
-                        clientFIO = source.Customers[j].CustomerFIO;
-                        break;
-                    }
-                }
-
-                string productName = string.Empty;
-                for ( int j = 0; j < source.Outputs.Count; ++j ) {
-                    if ( source.Outputs[j].ID == source.Orders[i].OutputID ) {
-                        productName = source.Outputs[j].OutputName;
-                        break;
-                    }
-                }
-
-                result.Add(new OrderViewModel {
-                    ID = source.Orders[i].ID,
-                    CustomerID = source.Orders[i].CustomerID,
-                    CustomerFIO = clientFIO,
-                    OutputID = source.Orders[i].OutputID,
-                    OutputName = productName,
-                    Count = source.Orders[i].Count,
-                    Sum = source.Orders[i].Sum,
-                    DateCreate = source.Orders[i].DateCreate.ToLongDateString(),
-                    DateImplement = source.Orders[i].DateImplement?.ToLongDateString(),
-                    Status = source.Orders[i].Status.ToString()
-                });
-            }
-
+            List<OrderViewModel> result = source.Orders
+            .Select(rec => new OrderViewModel {
+                ID = rec.ID,
+                CustomerID = rec.CustomerID,
+                OutputID = rec.OutputID,
+                DateCreate = rec.DateCreate.ToLongDateString(),
+                DateImplement = rec.DateImplement?.ToLongDateString(),
+                Status = rec.Status.ToString(),
+                Count = rec.Count,
+                Sum = rec.Sum,
+                CustomerFIO = source.Customers.FirstOrDefault(recC => recC.ID ==
+                rec.CustomerID)?.CustomerFIO,
+                OutputName = source.Outputs.FirstOrDefault(recP => recP.ID ==
+                rec.OutputID)?.OutputName,
+            })
+            .ToList();
             return result;
         }
 
         public void CreateOrder(OrderBindingModel model) {
-            int maxId = 0;
-            for ( int i = 0; i < source.Orders.Count; ++i ) {
-                if ( source.Orders[i].ID > maxId ) {
-                    maxId = source.Customers[i].ID;
-                }
-            }
-
+            int maxId = source.Orders.Count > 0 ? source.Orders.Max(rec => rec.ID) : 0;
             source.Orders.Add(new Order {
                 ID = maxId + 1,
                 CustomerID = model.CustomerID,
@@ -66,67 +46,88 @@ namespace ConfectioneryShopImplement.Implementations {
                 Sum = model.Sum,
                 Status = OrderStatus.Принят
             });
+
         }
-
         public void TakeOrderInWork(OrderBindingModel model) {
-            int index = -1;
-            for ( int i = 0; i < source.Orders.Count; ++i ) {
-                if ( source.Orders[i].ID == model.ID ) {
-                    index = i;
-                    break;
-                }
-            }
-
-            if ( index == -1 ) {
+            Order element = source.Orders.FirstOrDefault(rec => rec.ID == model.ID);
+            if (element == null) {
                 throw new Exception("Элемент не найден");
             }
-
-            if ( source.Orders[index].Status != OrderStatus.Принят ) {
+            if (element.Status != OrderStatus.Принят) {
                 throw new Exception("Заказ не в статусе \"Принят\"");
             }
-
-            source.Orders[index].DateImplement = DateTime.Now;
-            source.Orders[index].Status = OrderStatus.Выполняется;
-        }
-
-        public void FinishOrder(OrderBindingModel model) {
-            int index = -1;
-            for ( int i = 0; i < source.Orders.Count; ++i ) {
-                if ( source.Customers[i].ID == model.ID ) {
-                    index = i;
-                    break;
+            var outputDetails = source.DetailOutputs.Where(rec => rec.OutputID 
+            == element.OutputID);
+             foreach (var outputDetail in outputDetails) {
+                int countOnStorage = source.StorageDetails
+                .Where(rec => rec.DetailID ==
+               outputDetail.DetailID)
+               .Sum(rec => rec.Count);
+                if (countOnStorage < outputDetail.Count * element.Count) {
+                    var detailName = source.Details.FirstOrDefault(rec => rec.ID ==
+                   outputDetail.DetailID);
+                    throw new Exception("Не достаточно компонента " +
+                   detailName?.DetailName + " требуется " + (outputDetail.Count * element.Count) +
+                   ", в наличии " + countOnStorage);
                 }
             }
+            // списываем
+            foreach (var outputDetail in outputDetails) {
+                int countOnStorages = outputDetail.Count * element.Count;
+                var storageDetails = source.StorageDetails.Where(rec => rec.DetailID
+               == outputDetail.DetailID);
+                foreach (var storageDetail in storageDetails) {
+                    // компонентов на одном слкаде может не хватать
+                    if (storageDetail.Count >= countOnStorages) {
+                        storageDetail.Count -= countOnStorages;
+                        break;
+                    } else {
+                        countOnStorages -= storageDetail.Count;
+                        storageDetail.Count = 0;
+                    }
+                }
+            }
+            element.DateImplement = DateTime.Now;
+            element.Status = OrderStatus.Выполняется;
 
-            if ( index == -1 ) {
+        }
+        public void FinishOrder(OrderBindingModel model) {
+            Order element = source.Orders.FirstOrDefault(rec => rec.ID == model.ID);
+            if (element == null) {
                 throw new Exception("Элемент не найден");
             }
-
-            if ( source.Orders[index].Status != OrderStatus.Выполняется ) {
+            if (element.Status != OrderStatus.Выполняется) {
                 throw new Exception("Заказ не в статусе \"Выполняется\"");
             }
-
-            source.Orders[index].Status = OrderStatus.Готов;
+            element.Status = OrderStatus.Готов;
         }
-
         public void PayOrder(OrderBindingModel model) {
-            int index = -1;
-            for ( int i = 0; i < source.Orders.Count; ++i ) {
-                if ( source.Customers[i].ID == model.ID ) {
-                    index = i;
-                    break;
-                }
-            }
-
-            if ( index == -1 ) {
+            Order element = source.Orders.FirstOrDefault(rec => rec.ID == model.ID);
+            if (element == null) {
                 throw new Exception("Элемент не найден");
             }
-
-            if ( source.Orders[index].Status != OrderStatus.Готов ) {
+            if (element.Status != OrderStatus.Готов) {
                 throw new Exception("Заказ не в статусе \"Готов\"");
             }
-
-            source.Orders[index].Status = OrderStatus.Оплачен;
+            element.Status = OrderStatus.Оплачен;
         }
+
+        public void PutDetailOnStorage(StorageDetailBindingModel model) {
+            StorageDetail element = source.StorageDetails.FirstOrDefault(rec =>
+           rec.StorageID == model.StorageID && rec.DetailID == model.DetailID);
+            if (element != null) {
+                element.Count += model.Count;
+            } else {
+                int maxId = source.StorageDetails.Count > 0 ?
+               source.StorageDetails.Max(rec => rec.ID) : 0;
+                source.StorageDetails.Add(new StorageDetail {
+                    ID = ++maxId,
+                    StorageID = model.StorageID,
+                    DetailID = model.DetailID,
+                    Count = model.Count
+                });
+            }
+        }
+
     }
 }

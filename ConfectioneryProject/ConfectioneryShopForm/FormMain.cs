@@ -105,5 +105,17 @@ namespace ConfectioneryShopForm {
         private void refreshList_Button_Click(object sender, EventArgs e) {
             LoadData();
         }
+
+        private void складыToolStripMenuItem_Click(object sender, EventArgs e) {
+            var form = Container.Resolve<FormStorages>();
+            form.ShowDialog();
+            LoadData();
+        }
+
+        private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e) {
+            var form = Container.Resolve<FormFillStorage>();
+            form.ShowDialog();
+            LoadData();
+        }
     }
 }

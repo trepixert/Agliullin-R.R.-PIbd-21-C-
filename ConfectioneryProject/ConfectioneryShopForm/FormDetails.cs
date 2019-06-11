@@ -24,9 +24,9 @@ namespace ConfectioneryShopForm {
         }
 
         private void change_Button_Click(object sender, EventArgs e) {
-            if ( dataGridView.SelectedRows.Count == 1 ) {
+            if ( dataGridViewDetails.SelectedRows.Count == 1 ) {
                 var form = Container.Resolve<FormDetail>();
-                form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                form.Id = Convert.ToInt32(dataGridViewDetails.SelectedRows[0].Cells[0].Value);
                 if ( form.ShowDialog() == DialogResult.OK ) {
                     LoadData();
                 }
@@ -34,11 +34,11 @@ namespace ConfectioneryShopForm {
         }
 
         private void delete_Button_Click(object sender, EventArgs e) {
-            if ( dataGridView.SelectedRows.Count == 1 ) {
+            if ( dataGridViewDetails.SelectedRows.Count == 1 ) {
                 if ( MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
                      MessageBoxIcon.Question) == DialogResult.Yes ) {
                     int id =
-                        Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                        Convert.ToInt32(dataGridViewDetails.SelectedRows[0].Cells[0].Value);
                     try {
                         service.DelElem(id);
                     }
@@ -64,9 +64,9 @@ namespace ConfectioneryShopForm {
             try {
                 List<DetailViewModel> list = service.GetList();
                 if ( list != null ) {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].AutoSizeMode =
+                    dataGridViewDetails.DataSource = list;
+                    dataGridViewDetails.Columns[0].Visible = false;
+                    dataGridViewDetails.Columns[1].AutoSizeMode =
                         DataGridViewAutoSizeColumnMode.Fill;
                 }
             }

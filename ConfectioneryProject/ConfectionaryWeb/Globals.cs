@@ -7,5 +7,6 @@ namespace ConfectionaryWeb {
         public static IDetailService DetailService { get; } = new DetailServiceList();
         public static IOutputService OutputService { get; } = new OutputServiceList();
         public static IMainService MainService { get; } = new MainServiceList();
+        public static IStorageService StorageService { get; } = new StorageServiceList();
     }
 }

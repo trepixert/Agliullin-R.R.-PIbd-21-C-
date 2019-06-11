@@ -23,18 +23,18 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.textBoxComponent = new System.Windows.Forms.TextBox();
+            this.textBoxDetail = new System.Windows.Forms.TextBox();
             this.FNS_label = new System.Windows.Forms.Label();
             this.cancel_Button = new System.Windows.Forms.Button();
             this.save_Button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBoxComponent
+            // textBoxDetail
             // 
-            this.textBoxComponent.Location = new System.Drawing.Point(73, 22);
-            this.textBoxComponent.Name = "textBoxComponent";
-            this.textBoxComponent.Size = new System.Drawing.Size(266, 20);
-            this.textBoxComponent.TabIndex = 7;
+            this.textBoxDetail.Location = new System.Drawing.Point(73, 22);
+            this.textBoxDetail.Name = "textBoxDetail";
+            this.textBoxDetail.Size = new System.Drawing.Size(266, 20);
+            this.textBoxDetail.TabIndex = 7;
             // 
             // FNS_label
             // 
@@ -65,16 +65,16 @@
             this.save_Button.UseVisualStyleBackColor = true;
             this.save_Button.Click += new System.EventHandler(this.save_Button_Click);
             // 
-            // Component
+            // FormDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 110);
-            this.Controls.Add(this.textBoxComponent);
+            this.Controls.Add(this.textBoxDetail);
             this.Controls.Add(this.FNS_label);
             this.Controls.Add(this.cancel_Button);
             this.Controls.Add(this.save_Button);
-            this.Name = "Component";
+            this.Name = "FormDetail";
             this.Text = "Компонент";
             this.Load += new System.EventHandler(this.Component_Load);
             this.ResumeLayout(false);
@@ -84,7 +84,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxComponent;
+        private System.Windows.Forms.TextBox textBoxDetail;
         private System.Windows.Forms.Label FNS_label;
         private System.Windows.Forms.Button cancel_Button;
         private System.Windows.Forms.Button save_Button;

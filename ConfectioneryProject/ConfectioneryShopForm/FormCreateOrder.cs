@@ -1,20 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Unity;
 using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
-using Unity;
 
 namespace ConfectioneryShopForm {
     public partial class FormCreateOrder : Form {
-        [Dependency] public new IUnityContainer Container { get; set; }
+
+        [Dependency]
+        public new IUnityContainer Container { get; set; }
         private readonly ICustomerService serviceC;
         private readonly IOutputService serviceP;
         private readonly IMainService serviceM;
 
         public FormCreateOrder(ICustomerService serviceC, IOutputService serviceP,
-                               IMainService serviceM) {
+IMainService serviceM) {
             InitializeComponent();
             this.serviceC = serviceC;
             this.serviceP = serviceP;
@@ -24,39 +32,36 @@ namespace ConfectioneryShopForm {
         private void FormCreateOrder_Load(object sender, EventArgs e) {
             try {
                 List<CustomerViewModel> listC = serviceC.GetList();
-                if ( listC != null ) {
-                    comboBoxClient.DisplayMember = "ClientFIO";
-                    comboBoxClient.ValueMember = "Id";
-                    comboBoxClient.DataSource = listC;
-                    comboBoxClient.SelectedItem = null;
+                if (listC != null) {
+                    comboBoxCustomer.DisplayMember = "CustomerFIO";
+                    comboBoxCustomer.ValueMember = "ID";
+                    comboBoxCustomer.DataSource = listC;
+                    comboBoxCustomer.SelectedItem = null;
                 }
-
                 List<OutputViewModel> listP = serviceP.GetList();
-                if ( listP != null ) {
-                    comboBoxProduct.DisplayMember = "ProductName";
-                    comboBoxProduct.ValueMember = "Id";
-                    comboBoxProduct.DataSource = listP;
-                    comboBoxProduct.SelectedItem = null;
+                if (listP != null) {
+                    comboBoxOutput.DisplayMember = "OutputName";
+                    comboBoxOutput.ValueMember = "ID";
+                    comboBoxOutput.DataSource = listP;
+                    comboBoxOutput.SelectedItem = null;
                 }
-            }
-            catch ( Exception ex ) {
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+               MessageBoxIcon.Error);
             }
         }
 
         private void CalcSum() {
-            if ( comboBoxProduct.SelectedValue != null &&
-                 !string.IsNullOrEmpty(textBoxCount.Text) ) {
+            if (comboBoxOutput.SelectedValue != null &&
+           !string.IsNullOrEmpty(textBoxCount.Text)) {
                 try {
-                    int id = Convert.ToInt32(comboBoxProduct.SelectedValue);
+                    int id = Convert.ToInt32(comboBoxOutput.SelectedValue);
                     OutputViewModel product = serviceP.GetElement(id);
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * product.Price).ToString();
-                }
-                catch ( Exception ex ) {
+                } catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                   MessageBoxIcon.Error);
                 }
             }
         }
@@ -70,39 +75,35 @@ namespace ConfectioneryShopForm {
         }
 
         private void save_Button_Click(object sender, EventArgs e) {
-            if ( string.IsNullOrEmpty(textBoxCount.Text) ) {
+            if (string.IsNullOrEmpty(textBoxCount.Text)) {
                 MessageBox.Show("Заполните поле Количество", "Ошибка",
-                MessageBoxButtons.OK, MessageBoxIcon.Error);
+               MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            if ( comboBoxClient.SelectedValue == null ) {
+            if (comboBoxCustomer.SelectedValue == null) {
                 MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+               MessageBoxIcon.Error);
                 return;
             }
-
-            if ( comboBoxProduct.SelectedValue == null ) {
+            if (comboBoxOutput.SelectedValue == null) {
                 MessageBox.Show("Выберите изделие", "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+               MessageBoxIcon.Error);
                 return;
             }
-
             try {
                 serviceM.CreateOrder(new OrderBindingModel {
-                    CustomerID = Convert.ToInt32(comboBoxClient.SelectedValue),
-                    OutputID = Convert.ToInt32(comboBoxProduct.SelectedValue),
+                    CustomerID = Convert.ToInt32(comboBoxCustomer.SelectedValue),
+                    OutputID = Convert.ToInt32(comboBoxOutput.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToInt32(textBoxSum.Text)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+               MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
-                Close();
-            }
-            catch ( Exception ex ) {
+            Close();
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+               MessageBoxIcon.Error);
             }
         }
 

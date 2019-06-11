@@ -27,8 +27,8 @@
             this.change_Button = new System.Windows.Forms.Button();
             this.delete_Button = new System.Windows.Forms.Button();
             this.add_Button = new System.Windows.Forms.Button();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.dataGridViewOutputs = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOutputs)).BeginInit();
             this.SuspendLayout();
             // 
             // update_Button
@@ -71,15 +71,15 @@
             this.add_Button.UseVisualStyleBackColor = true;
             this.add_Button.Click += new System.EventHandler(this.add_Button_Click);
             // 
-            // dataGridView
+            // dataGridViewOutputs
             // 
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(477, 457);
-            this.dataGridView.TabIndex = 5;
+            this.dataGridViewOutputs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOutputs.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewOutputs.Name = "dataGridViewOutputs";
+            this.dataGridViewOutputs.Size = new System.Drawing.Size(477, 457);
+            this.dataGridViewOutputs.TabIndex = 5;
             // 
-            // FormProducts
+            // FormOutputs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -88,11 +88,11 @@
             this.Controls.Add(this.change_Button);
             this.Controls.Add(this.delete_Button);
             this.Controls.Add(this.add_Button);
-            this.Controls.Add(this.dataGridView);
-            this.Name = "FormProducts";
+            this.Controls.Add(this.dataGridViewOutputs);
+            this.Name = "FormOutputs";
             this.Text = "Изделия";
             this.Load += new System.EventHandler(this.FormProducts_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOutputs)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -103,6 +103,6 @@
         private System.Windows.Forms.Button change_Button;
         private System.Windows.Forms.Button delete_Button;
         private System.Windows.Forms.Button add_Button;
-        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.DataGridView dataGridViewOutputs;
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using ConfectioneryShopImplement.Implementations;
-using ConfectioneryShopModelServiceDAL.LogicInterface;
 using Unity;
 using Unity.Lifetime;
+using ConfectioneryShopModelServiceDAL.LogicInterface;
+using ConfectioneryShopImplement.Implementations;
 
 namespace ConfectioneryShopForm {
     static class Program {
@@ -21,13 +24,15 @@ namespace ConfectioneryShopForm {
         public static IUnityContainer BuildUnityContainer() {
             var currentContainer = new UnityContainer();
             currentContainer.RegisterType<ICustomerService, CustomerServiceList>(new
-                HierarchicalLifetimeManager());
+           HierarchicalLifetimeManager());
             currentContainer.RegisterType<IDetailService, DetailServiceList>(new
-                HierarchicalLifetimeManager());
+           HierarchicalLifetimeManager());
             currentContainer.RegisterType<IOutputService, OutputServiceList>(new
-                HierarchicalLifetimeManager());
+           HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMainService, MainServiceList>(new
-                HierarchicalLifetimeManager());
+           HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IStorageService,StorageServiceList>(new 
+           HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

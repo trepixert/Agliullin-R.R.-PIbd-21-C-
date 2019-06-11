@@ -27,7 +27,7 @@ namespace ConfectioneryShopForm {
                 try {
                     DetailViewModel view = service.GetElement(id.Value);
                     if ( view != null ) {
-                        textBoxComponent.Text = view.DetailName;
+                        textBoxDetail.Text = view.DetailName;
                     }
                 }
                 catch ( Exception ex ) {
@@ -38,7 +38,7 @@ namespace ConfectioneryShopForm {
         }
 
         private void save_Button_Click(object sender, EventArgs e) {
-            if ( string.IsNullOrEmpty(textBoxComponent.Text) ) {
+            if ( string.IsNullOrEmpty(textBoxDetail.Text) ) {
                 MessageBox.Show("Заполните название", "Ошибка", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
                 return;
@@ -48,12 +48,12 @@ namespace ConfectioneryShopForm {
                 if ( id.HasValue ) {
                     service.UpdElem(new DetailBindingModel {
                         ID = id.Value,
-                        DetailName = textBoxComponent.Text
+                        DetailName = textBoxDetail.Text
                     });
                 }
                 else {
                     service.AddElem(new DetailBindingModel {
-                        DetailName = textBoxComponent.Text
+                        DetailName = textBoxDetail.Text
                     });
                 }
 

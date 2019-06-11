@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.ViewModel;
 
@@ -9,5 +13,6 @@ namespace ConfectioneryShopModelServiceDAL.LogicInterface {
         void TakeOrderInWork(OrderBindingModel model);
         void FinishOrder(OrderBindingModel model);
         void PayOrder(OrderBindingModel model);
+        void PutDetailOnStorage(StorageDetailBindingModel model);
     }
 }

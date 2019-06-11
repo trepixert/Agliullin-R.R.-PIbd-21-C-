@@ -27,8 +27,8 @@
             this.change_Button = new System.Windows.Forms.Button();
             this.delete_Button = new System.Windows.Forms.Button();
             this.add_Button = new System.Windows.Forms.Button();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.dataGridViewDetails = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetails)).BeginInit();
             this.SuspendLayout();
             // 
             // update_Button
@@ -71,13 +71,13 @@
             this.add_Button.UseVisualStyleBackColor = true;
             this.add_Button.Click += new System.EventHandler(this.add_Button_Click);
             // 
-            // dataGridView
+            // dataGridViewDetails
             // 
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(477, 457);
-            this.dataGridView.TabIndex = 5;
+            this.dataGridViewDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewDetails.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewDetails.Name = "dataGridViewDetails";
+            this.dataGridViewDetails.Size = new System.Drawing.Size(477, 457);
+            this.dataGridViewDetails.TabIndex = 5;
             // 
             // FormDetails
             // 
@@ -88,11 +88,11 @@
             this.Controls.Add(this.change_Button);
             this.Controls.Add(this.delete_Button);
             this.Controls.Add(this.add_Button);
-            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.dataGridViewDetails);
             this.Name = "FormDetails";
-            this.Text = "Components";
+            this.Text = "Компоненты";
             this.Load += new System.EventHandler(this.Components_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetails)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -103,6 +103,6 @@
         private System.Windows.Forms.Button change_Button;
         private System.Windows.Forms.Button delete_Button;
         private System.Windows.Forms.Button add_Button;
-        private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.DataGridView dataGridViewDetails;
     }
 }

@@ -24,9 +24,9 @@ namespace ConfectioneryShopForm {
             try {
                 List<CustomerViewModel> list = service.GetList();
                 if ( list != null ) {
-                    dataGridViewOfClients.DataSource = list;
-                    dataGridViewOfClients.Columns[0].Visible = false;
-                    dataGridViewOfClients.Columns[1].AutoSizeMode =
+                    dataGridViewOfCustomers.DataSource = list;
+                    dataGridViewOfCustomers.Columns[0].Visible = false;
+                    dataGridViewOfCustomers.Columns[1].AutoSizeMode =
                         DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
@@ -44,9 +44,9 @@ namespace ConfectioneryShopForm {
         }
 
         private void change_Button_Click(object sender, EventArgs e) {
-            if ( dataGridViewOfClients.SelectedRows.Count == 1 ) {
+            if ( dataGridViewOfCustomers.SelectedRows.Count == 1 ) {
                 var form = Container.Resolve<FormCustomer>();
-                form.Id = Convert.ToInt32(dataGridViewOfClients.SelectedRows[0].Cells[0].Value);
+                form.Id = Convert.ToInt32(dataGridViewOfCustomers.SelectedRows[0].Cells[0].Value);
                 if ( form.ShowDialog() == DialogResult.OK ) {
                     LoadData();
                 }
@@ -54,11 +54,11 @@ namespace ConfectioneryShopForm {
         }
 
         private void delete_Button_Click(object sender, EventArgs e) {
-            if ( dataGridViewOfClients.SelectedRows.Count == 1 ) {
+            if ( dataGridViewOfCustomers.SelectedRows.Count == 1 ) {
                 if ( MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
                      MessageBoxIcon.Question) == DialogResult.Yes ) {
                     int id =
-                        Convert.ToInt32(dataGridViewOfClients.SelectedRows[0].Cells[0].Value);
+                        Convert.ToInt32(dataGridViewOfCustomers.SelectedRows[0].Cells[0].Value);
                     try {
                         service.DelElem(id);
                     }
