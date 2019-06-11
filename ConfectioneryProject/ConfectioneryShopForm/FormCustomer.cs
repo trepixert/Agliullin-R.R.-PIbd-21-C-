@@ -31,13 +31,13 @@ namespace ConfectioneryShopForm {
 
             try {
                 if ( id.HasValue ) {
-                    service.updElem(new CustomerBindingModel {
+                    service.UpdElem(new CustomerBindingModel {
                         ID = id.Value,
                         CustomerFIO = textBoxFIO.Text
                     });
                 }
                 else {
-                    service.addElem(new CustomerBindingModel {
+                    service.AddElem(new CustomerBindingModel {
                         CustomerFIO = textBoxFIO.Text
                     });
                 }
@@ -61,7 +61,7 @@ namespace ConfectioneryShopForm {
         private void Client_Load(object sender, EventArgs e) {
             if ( id.HasValue ) {
                 try {
-                    CustomerViewModel view = service.getElement(id.Value);
+                    CustomerViewModel view = service.GetElement(id.Value);
                     if ( view != null ) {
                         textBoxFIO.Text = view.CustomerFIO;
                     }

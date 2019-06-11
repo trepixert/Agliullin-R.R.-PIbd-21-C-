@@ -22,7 +22,7 @@ namespace ConfectioneryShopForm {
 
         private void LoadData() {
             try {
-                List<OrderViewModel> list = service.getList();
+                List<OrderViewModel> list = service.GetList();
                 if ( list != null ) {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
@@ -64,7 +64,7 @@ namespace ConfectioneryShopForm {
             if ( dataGridView.SelectedRows.Count == 1 ) {
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try {
-                    service.takeOrderInWork(new OrderBindingModel {ID = id});
+                    service.TakeOrderInWork(new OrderBindingModel {ID = id});
                     LoadData();
                 }
                 catch ( Exception ex ) {
@@ -78,7 +78,7 @@ namespace ConfectioneryShopForm {
             if ( dataGridView.SelectedRows.Count == 1 ) {
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try {
-                    service.finishOrder(new OrderBindingModel {ID = id});
+                    service.FinishOrder(new OrderBindingModel {ID = id});
                     LoadData();
                 }
                 catch ( Exception ex ) {
@@ -92,7 +92,7 @@ namespace ConfectioneryShopForm {
             if ( dataGridView.SelectedRows.Count == 1 ) {
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try {
-                    service.payOrder(new OrderBindingModel {ID = id});
+                    service.PayOrder(new OrderBindingModel {ID = id});
                     LoadData();
                 }
                 catch ( Exception ex ) {

@@ -14,7 +14,7 @@ namespace ConfectioneryShopImplement.Implementations {
             source = DataListSingleton.getInstance();
         }
 
-        public List<OutputViewModel> getList() {
+        public List<OutputViewModel> GetList() {
             List<OutputViewModel> result = new List<OutputViewModel>();
             for ( int i = 0; i < source.Outputs.Count; ++i ) {
                 List<ConnectionBetweenDetailAndOutputViewModel> productComponents =
@@ -51,7 +51,7 @@ namespace ConfectioneryShopImplement.Implementations {
             return result;
         }
 
-        public OutputViewModel getElement(int id) {
+        public OutputViewModel GetElement(int id) {
             for ( int i = 0; i < source.Outputs.Count; ++i ) {
                 List<ConnectionBetweenDetailAndOutputViewModel> productComponents =
                     new List<ConnectionBetweenDetailAndOutputViewModel>();
@@ -88,7 +88,7 @@ namespace ConfectioneryShopImplement.Implementations {
             throw new Exception("Элемент не найден");
         }
 
-        public void addElem(OutputBindingModel model) {
+        public void AddElem(OutputBindingModel model) {
             int maxId = 0;
             for ( int i = 0; i < source.Outputs.Count; ++i ) {
                 if ( source.Outputs[i].ID > maxId ) {
@@ -133,7 +133,7 @@ namespace ConfectioneryShopImplement.Implementations {
             }
         }
 
-        public void updElem(OutputBindingModel model) {
+        public void UpdElem(OutputBindingModel model) {
             int index = -1;
             for ( int i = 0; i < source.Outputs.Count; ++i ) {
                 if ( source.Outputs[i].ID == model.ID ) {
@@ -204,7 +204,7 @@ namespace ConfectioneryShopImplement.Implementations {
             }
         }
 
-        public void delElem(int id) {
+        public void DelElem(int id) {
             for ( int i = 0; i < source.DetailOutputs.Count; ++i )
                 if ( source.DetailOutputs[i].OutputID == id )
                     source.DetailOutputs.RemoveAt(i--);

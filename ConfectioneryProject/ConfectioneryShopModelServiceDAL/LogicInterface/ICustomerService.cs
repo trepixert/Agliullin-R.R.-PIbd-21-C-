@@ -4,10 +4,10 @@ using ConfectioneryShopModelServiceDAL.ViewModel;
 
 namespace ConfectioneryShopModelServiceDAL.LogicInterface {
     public interface ICustomerService {
-        List<CustomerViewModel> getList();
-        CustomerViewModel getElement(int id);
-        void addElem(CustomerBindingModel model);
-        void updElem(CustomerBindingModel model);
-        void delElem(int id);
+        List<CustomerViewModel> GetList();
+        CustomerViewModel GetElement(int id);
+        void AddElem(CustomerBindingModel model);
+        void UpdElem(CustomerBindingModel model);
+        void DelElem(int id);
     }
 }

@@ -13,12 +13,12 @@ namespace ConfWebView.Controllers {
 
         // GET: PizzaOrder
         public ActionResult Index() {
-            return View(mainService.getList());
+            return View(mainService.GetList());
         }
 
         public ActionResult Create() {
-            var outputs = new SelectList(outputService.getList(), "ID", "OutputName");
-            var customers = new SelectList(customerService.getList(), "Id", "CustomerFIO");
+            var outputs = new SelectList(outputService.GetList(), "ID", "OutputName");
+            var customers = new SelectList(customerService.GetList(), "Id", "CustomerFIO");
             ViewBag.Outputs = outputs;
             ViewBag.Customers = customers;
             return View();
@@ -31,7 +31,7 @@ namespace ConfWebView.Controllers {
             var outputCount = int.Parse(Request["Count"]);
             var totalCost = CalcSum(outputID, outputCount);
 
-            mainService.createOrder(new OrderBindingModel {
+            mainService.CreateOrder(new OrderBindingModel {
                 CustomerID = customerId,
                 OutputID = outputID,
                 Count = outputCount,
@@ -41,7 +41,7 @@ namespace ConfWebView.Controllers {
         }
 
         private Decimal CalcSum(int outputID, int outputCount) {
-            OutputViewModel output = outputService.getElement(outputID);
+            OutputViewModel output = outputService.GetElement(outputID);
             return outputCount * output.Price;
         }
 
@@ -49,13 +49,13 @@ namespace ConfWebView.Controllers {
             try {
                 switch ( status ) {
                     case "Processing":
-                        mainService.takeOrderInWork(new OrderBindingModel {ID = id});
+                        mainService.TakeOrderInWork(new OrderBindingModel {ID = id});
                         break;
                     case "Ready":
-                        mainService.finishOrder(new OrderBindingModel {ID = id});
+                        mainService.FinishOrder(new OrderBindingModel {ID = id});
                         break;
                     case "Paid":
-                        mainService.payOrder(new OrderBindingModel {ID = id});
+                        mainService.PayOrder(new OrderBindingModel {ID = id});
                         break;
                 }
             }

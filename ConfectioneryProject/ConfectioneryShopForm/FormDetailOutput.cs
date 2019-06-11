@@ -61,7 +61,7 @@ namespace ConfectioneryShopForm {
 
         private void FormProductComponent_Load(object sender, EventArgs e) {
             try {
-                List<DetailViewModel> list = service.getList();
+                List<DetailViewModel> list = service.GetList();
                 if ( list != null ) {
                     comboBoxComponent.DisplayMember = "ComponentName";
                     comboBoxComponent.ValueMember = "Id";

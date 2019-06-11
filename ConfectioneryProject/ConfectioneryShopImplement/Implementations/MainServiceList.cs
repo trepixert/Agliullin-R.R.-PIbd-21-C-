@@ -13,7 +13,7 @@ namespace ConfectioneryShopImplement.Implementations {
             source = DataListSingleton.getInstance();
         }
 
-        public List<OrderViewModel> getList() {
+        public List<OrderViewModel> GetList() {
             List<OrderViewModel> result = new List<OrderViewModel>();
             for ( int i = 0; i < source.Orders.Count; ++i ) {
                 string clientFIO = string.Empty;
@@ -49,7 +49,7 @@ namespace ConfectioneryShopImplement.Implementations {
             return result;
         }
 
-        public void createOrder(OrderBindingModel model) {
+        public void CreateOrder(OrderBindingModel model) {
             int maxId = 0;
             for ( int i = 0; i < source.Orders.Count; ++i ) {
                 if ( source.Orders[i].ID > maxId ) {
@@ -68,7 +68,7 @@ namespace ConfectioneryShopImplement.Implementations {
             });
         }
 
-        public void takeOrderInWork(OrderBindingModel model) {
+        public void TakeOrderInWork(OrderBindingModel model) {
             int index = -1;
             for ( int i = 0; i < source.Orders.Count; ++i ) {
                 if ( source.Orders[i].ID == model.ID ) {
@@ -89,7 +89,7 @@ namespace ConfectioneryShopImplement.Implementations {
             source.Orders[index].Status = OrderStatus.Выполняется;
         }
 
-        public void finishOrder(OrderBindingModel model) {
+        public void FinishOrder(OrderBindingModel model) {
             int index = -1;
             for ( int i = 0; i < source.Orders.Count; ++i ) {
                 if ( source.Customers[i].ID == model.ID ) {
@@ -109,7 +109,7 @@ namespace ConfectioneryShopImplement.Implementations {
             source.Orders[index].Status = OrderStatus.Готов;
         }
 
-        public void payOrder(OrderBindingModel model) {
+        public void PayOrder(OrderBindingModel model) {
             int index = -1;
             for ( int i = 0; i < source.Orders.Count; ++i ) {
                 if ( source.Customers[i].ID == model.ID ) {

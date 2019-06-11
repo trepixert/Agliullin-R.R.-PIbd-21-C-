@@ -11,7 +11,7 @@ namespace ConfWebView.Controllers {
         private IDetailService detailService = Globals.DetailService;
 
         public ActionResult Index() {
-            if ( Session["Pizza"] == null ) {
+            if ( Session["Output"] == null ) {
                 var output = new OutputViewModel();
                 output.OutputDetail = new List<ConnectionBetweenDetailAndOutputViewModel>();
                 Session["Output"] = output;
@@ -20,7 +20,7 @@ namespace ConfWebView.Controllers {
         }
 
         public ActionResult AddDetail() {
-            var details = new SelectList(detailService.getList(), "ID", "DetailName");
+            var details = new SelectList(detailService.GetList(), "ID", "DetailName");
             ViewBag.Ingredients = details;
             return View();
         }
@@ -30,7 +30,7 @@ namespace ConfWebView.Controllers {
             var output = (OutputViewModel) Session["Output"];
             var detail = new ConnectionBetweenDetailAndOutputViewModel {
                 ID = int.Parse(Request["ID"]),
-                DetailName = detailService.getElement(int.Parse(Request["ID"])).DetailName,
+                DetailName = detailService.GetElement(int.Parse(Request["ID"])).DetailName,
                 Count = int.Parse(Request["Count"])
             };
             output.OutputDetail.Add(detail);
@@ -51,12 +51,12 @@ namespace ConfWebView.Controllers {
                 });
             }
 
-            service.addElem(new OutputBindingModel {
+            service.AddElem(new OutputBindingModel {
                 OutputName = Request["OutputName"],
                 Price = Convert.ToDecimal(Request["Price"]),
                 OutputDetail = outputDetails
             });
-            Session.Remove("Pizza");
+            Session.Remove("Output");
             return RedirectToAction("Index", "Output");
         }
     }

@@ -22,7 +22,7 @@ namespace ConfectioneryShopForm {
 
         private void LoadData() {
             try {
-                List<OutputViewModel> list = service.getList();
+                List<OutputViewModel> list = service.GetList();
                 if ( list != null ) {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
@@ -60,7 +60,7 @@ namespace ConfectioneryShopForm {
                     int id =
                         Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try {
-                        service.delElem(id);
+                        service.DelElem(id);
                     }
                     catch ( Exception ex ) {
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,

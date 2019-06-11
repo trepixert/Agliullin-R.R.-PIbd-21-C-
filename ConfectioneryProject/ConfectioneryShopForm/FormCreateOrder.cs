@@ -23,7 +23,7 @@ namespace ConfectioneryShopForm {
 
         private void FormCreateOrder_Load(object sender, EventArgs e) {
             try {
-                List<CustomerViewModel> listC = serviceC.getList();
+                List<CustomerViewModel> listC = serviceC.GetList();
                 if ( listC != null ) {
                     comboBoxClient.DisplayMember = "ClientFIO";
                     comboBoxClient.ValueMember = "Id";
@@ -31,7 +31,7 @@ namespace ConfectioneryShopForm {
                     comboBoxClient.SelectedItem = null;
                 }
 
-                List<OutputViewModel> listP = serviceP.getList();
+                List<OutputViewModel> listP = serviceP.GetList();
                 if ( listP != null ) {
                     comboBoxProduct.DisplayMember = "ProductName";
                     comboBoxProduct.ValueMember = "Id";
@@ -50,7 +50,7 @@ namespace ConfectioneryShopForm {
                  !string.IsNullOrEmpty(textBoxCount.Text) ) {
                 try {
                     int id = Convert.ToInt32(comboBoxProduct.SelectedValue);
-                    OutputViewModel product = serviceP.getElement(id);
+                    OutputViewModel product = serviceP.GetElement(id);
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * product.Price).ToString();
                 }
@@ -89,7 +89,7 @@ namespace ConfectioneryShopForm {
             }
 
             try {
-                serviceM.createOrder(new OrderBindingModel {
+                serviceM.CreateOrder(new OrderBindingModel {
                     CustomerID = Convert.ToInt32(comboBoxClient.SelectedValue),
                     OutputID = Convert.ToInt32(comboBoxProduct.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),

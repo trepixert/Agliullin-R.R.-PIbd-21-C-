@@ -26,7 +26,7 @@ namespace ConfectioneryShopForm {
         private void FormProduct_Load(object sender, EventArgs e) {
             if ( id.HasValue ) {
                 try {
-                    OutputViewModel view = service.getElement(id.Value);
+                    OutputViewModel view = service.GetElement(id.Value);
                     if ( view != null ) {
                         textBoxName.Text = view.OutputName;
                         textBoxPrice.Text = view.Price.ToString();
@@ -143,7 +143,7 @@ namespace ConfectioneryShopForm {
                 }
 
                 if ( id.HasValue ) {
-                    service.updElem(new OutputBindingModel {
+                    service.UpdElem(new OutputBindingModel {
                         ID = id.Value,
                         OutputName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),
@@ -151,7 +151,7 @@ namespace ConfectioneryShopForm {
                     });
                 }
                 else {
-                    service.addElem(new OutputBindingModel {
+                    service.AddElem(new OutputBindingModel {
                         OutputName = textBoxName.Text,
                         Price = Convert.ToInt32(textBoxPrice.Text),
                         OutputDetail = productComponentBM

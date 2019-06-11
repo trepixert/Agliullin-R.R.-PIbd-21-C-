@@ -8,7 +8,7 @@ namespace ConfWebView.Controllers {
 
         // GET: Ingredients
         public ActionResult Index() {
-            return View(service.getList());
+            return View(service.GetList());
         }
 
 
@@ -20,7 +20,7 @@ namespace ConfWebView.Controllers {
 
         [HttpPost]
         public ActionResult CreatePost() {
-            service.addElem(new DetailBindingModel {
+            service.AddElem(new DetailBindingModel {
                 DetailName = Request["DetailName"]
             });
             return RedirectToAction("Index");
@@ -29,7 +29,7 @@ namespace ConfWebView.Controllers {
 
         // GET: Ingredients/Edit/5
         public ActionResult Edit(int id) {
-            var viewModel = service.getElement(id);
+            var viewModel = service.GetElement(id);
             var bindingModel = new DetailBindingModel {
                 ID = id,
                 DetailName = viewModel.DetailName
@@ -40,7 +40,7 @@ namespace ConfWebView.Controllers {
 
         [HttpPost]
         public ActionResult EditPost() {
-            service.updElem(new DetailBindingModel {
+            service.UpdElem(new DetailBindingModel {
                 ID = int.Parse(Request["ID"]),
                 DetailName = Request["DetailName"]
             });
@@ -50,7 +50,7 @@ namespace ConfWebView.Controllers {
 
         // GET: Ingredients/Delete/5
         public ActionResult Delete(int id) {
-            service.delElem(id);
+            service.DelElem(id);
             return RedirectToAction("Index");
         }
     }

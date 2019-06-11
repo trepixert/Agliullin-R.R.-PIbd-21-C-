@@ -25,7 +25,7 @@ namespace ConfectioneryShopForm {
         private void Component_Load(object sender, EventArgs e) {
             if ( id.HasValue ) {
                 try {
-                    DetailViewModel view = service.getElement(id.Value);
+                    DetailViewModel view = service.GetElement(id.Value);
                     if ( view != null ) {
                         textBoxComponent.Text = view.DetailName;
                     }
@@ -46,13 +46,13 @@ namespace ConfectioneryShopForm {
 
             try {
                 if ( id.HasValue ) {
-                    service.updElem(new DetailBindingModel {
+                    service.UpdElem(new DetailBindingModel {
                         ID = id.Value,
                         DetailName = textBoxComponent.Text
                     });
                 }
                 else {
-                    service.addElem(new DetailBindingModel {
+                    service.AddElem(new DetailBindingModel {
                         DetailName = textBoxComponent.Text
                     });
                 }

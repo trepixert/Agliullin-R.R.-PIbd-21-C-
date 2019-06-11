@@ -6,11 +6,11 @@ namespace ConfWebView.Controllers {
         public IOutputService service = Globals.OutputService;
 
         public ActionResult Index() {
-            return View(service.getList());
+            return View(service.GetList());
         }
 
         public ActionResult Delete(int id) {
-            service.delElem(id);
+            service.DelElem(id);
             return RedirectToAction("Index");
         }
     }

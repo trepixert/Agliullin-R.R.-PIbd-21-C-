@@ -8,7 +8,7 @@ namespace ConfWebView.Controllers {
 
         // GET: Customers
         public ActionResult Index() {
-            return View(service.getList());
+            return View(service.GetList());
         }
 
         public ActionResult Create() {
@@ -17,14 +17,14 @@ namespace ConfWebView.Controllers {
 
         [HttpPost]
         public ActionResult CreatePost() {
-            service.addElem(new CustomerBindingModel {
+            service.AddElem(new CustomerBindingModel {
                 CustomerFIO = Request["CustomerFIO"]
             });
             return RedirectToAction("Index");
         }
 
         public ActionResult Edit(int id) {
-            var viewModel = service.getElement(id);
+            var viewModel = service.GetElement(id);
             var bindingModel = new CustomerBindingModel {
                 ID = id,
                 CustomerFIO = viewModel.CustomerFIO
@@ -34,7 +34,7 @@ namespace ConfWebView.Controllers {
 
         [HttpPost]
         public ActionResult EditPost() {
-            service.updElem(new CustomerBindingModel {
+            service.UpdElem(new CustomerBindingModel {
                 ID = int.Parse(Request["ID"]),
                 CustomerFIO = Request["CustomerFIO"]
             });
@@ -42,7 +42,7 @@ namespace ConfWebView.Controllers {
         }
 
         public ActionResult Delete(int id) {
-            service.delElem(id);
+            service.DelElem(id);
             return RedirectToAction("Index");
         }
     }
