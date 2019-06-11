@@ -31,14 +31,14 @@ IMainService serviceM) {
 
         private void FormCreateOrder_Load(object sender, EventArgs e) {
             try {
-                List<CustomerViewModel> listC = serviceC.getList();
+                List<CustomerViewModel> listC = serviceC.GetList();
                 if (listC != null) {
                     comboBoxCustomer.DisplayMember = "CustomerFIO";
                     comboBoxCustomer.ValueMember = "ID";
                     comboBoxCustomer.DataSource = listC;
                     comboBoxCustomer.SelectedItem = null;
                 }
-                List<OutputViewModel> listP = serviceP.getList();
+                List<OutputViewModel> listP = serviceP.GetList();
                 if (listP != null) {
                     comboBoxOutput.DisplayMember = "OutputName";
                     comboBoxOutput.ValueMember = "ID";
@@ -56,7 +56,7 @@ IMainService serviceM) {
            !string.IsNullOrEmpty(textBoxCount.Text)) {
                 try {
                     int id = Convert.ToInt32(comboBoxOutput.SelectedValue);
-                    OutputViewModel product = serviceP.getElement(id);
+                    OutputViewModel product = serviceP.GetElement(id);
                     int count = Convert.ToInt32(textBoxCount.Text);
                     textBoxSum.Text = (count * product.Price).ToString();
                 } catch (Exception ex) {
@@ -91,7 +91,7 @@ IMainService serviceM) {
                 return;
             }
             try {
-                serviceM.createOrder(new OrderBindingModel {
+                serviceM.CreateOrder(new OrderBindingModel {
                     CustomerID = Convert.ToInt32(comboBoxCustomer.SelectedValue),
                     OutputID = Convert.ToInt32(comboBoxOutput.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),

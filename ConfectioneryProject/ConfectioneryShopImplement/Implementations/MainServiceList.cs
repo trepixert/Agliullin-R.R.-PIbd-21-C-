@@ -15,7 +15,7 @@ namespace ConfectioneryShopImplement.Implementations {
         public MainServiceList() {
             source = DataListSingleton.getInstance();
         }
-        public List<OrderViewModel> getList() {
+        public List<OrderViewModel> GetList() {
             List<OrderViewModel> result = source.Orders
             .Select(rec => new OrderViewModel {
                 ID = rec.ID,
@@ -35,7 +35,7 @@ namespace ConfectioneryShopImplement.Implementations {
             return result;
         }
 
-        public void createOrder(OrderBindingModel model) {
+        public void CreateOrder(OrderBindingModel model) {
             int maxId = source.Orders.Count > 0 ? source.Orders.Max(rec => rec.ID) : 0;
             source.Orders.Add(new Order {
                 ID = maxId + 1,
@@ -48,7 +48,7 @@ namespace ConfectioneryShopImplement.Implementations {
             });
 
         }
-        public void takeOrderInWork(OrderBindingModel model) {
+        public void TakeOrderInWork(OrderBindingModel model) {
             Order element = source.Orders.FirstOrDefault(rec => rec.ID == model.ID);
             if (element == null) {
                 throw new Exception("Элемент не найден");
@@ -91,7 +91,7 @@ namespace ConfectioneryShopImplement.Implementations {
             element.Status = OrderStatus.Выполняется;
 
         }
-        public void finishOrder(OrderBindingModel model) {
+        public void FinishOrder(OrderBindingModel model) {
             Order element = source.Orders.FirstOrDefault(rec => rec.ID == model.ID);
             if (element == null) {
                 throw new Exception("Элемент не найден");
@@ -101,7 +101,7 @@ namespace ConfectioneryShopImplement.Implementations {
             }
             element.Status = OrderStatus.Готов;
         }
-        public void payOrder(OrderBindingModel model) {
+        public void PayOrder(OrderBindingModel model) {
             Order element = source.Orders.FirstOrDefault(rec => rec.ID == model.ID);
             if (element == null) {
                 throw new Exception("Элемент не найден");
@@ -112,7 +112,7 @@ namespace ConfectioneryShopImplement.Implementations {
             element.Status = OrderStatus.Оплачен;
         }
 
-        public void putDetailOnStorage(StorageDetailBindingModel model) {
+        public void PutDetailOnStorage(StorageDetailBindingModel model) {
             StorageDetail element = source.StorageDetails.FirstOrDefault(rec =>
            rec.StorageID == model.StorageID && rec.DetailID == model.DetailID);
             if (element != null) {

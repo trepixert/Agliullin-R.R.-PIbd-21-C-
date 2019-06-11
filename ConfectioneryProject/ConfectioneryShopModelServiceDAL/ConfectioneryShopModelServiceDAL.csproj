@@ -50,7 +50,6 @@
     <Compile Include="BindingModel\StorageDetailBindingModel.cs" />
     <Compile Include="LogicInterface\ICustomerService.cs" />
     <Compile Include="LogicInterface\IDetailService.cs" />
-    <Compile Include="LogicInterface\ILogic.cs" />
     <Compile Include="LogicInterface\IMainService.cs" />
     <Compile Include="LogicInterface\IOutputService.cs" />
     <Compile Include="LogicInterface\IStorageService.cs" />
