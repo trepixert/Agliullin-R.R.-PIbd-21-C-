@@ -46,7 +46,7 @@ namespace ConfectioneryShopForm {
                 return;
             }
             try {
-                serviceM.putDetailOnStorage(new StorageDetailBindingModel {
+                serviceM.PutDetailOnStorage(new StorageDetailBindingModel {
                     DetailID = Convert.ToInt32(comboBoxDetail.SelectedValue),
                     StorageID = Convert.ToInt32(comboBoxStorage.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text)
@@ -58,19 +58,20 @@ namespace ConfectioneryShopForm {
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
-            }
+            }
+
         }
 
         private void FormFillStorage_Load(object sender, EventArgs e) {
             try {
-                List<DetailViewModel> listC = serviceC.getList();
+                List<DetailViewModel> listC = serviceC.GetList();
                 if (listC != null) {
                     comboBoxDetail.DisplayMember = "DetailName";
                     comboBoxDetail.ValueMember = "ID";
                     comboBoxDetail.DataSource = listC;
                     comboBoxDetail.SelectedItem = null;
                 }
-                List<StorageViewModel> listS = serviceS.getList();
+                List<StorageViewModel> listS = serviceS.GetList();
                 if (listS != null) {
                     comboBoxStorage.DisplayMember = "StorageName";
                     comboBoxStorage.ValueMember = "ID";

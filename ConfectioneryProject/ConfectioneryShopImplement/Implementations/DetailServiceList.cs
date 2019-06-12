@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ConfectioneryProject;
-using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.BindingModel;
+using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.ViewModel;
 
 namespace ConfectioneryShopImplement.Implementations {
@@ -16,61 +13,69 @@ namespace ConfectioneryShopImplement.Implementations {
             source = DataListSingleton.getInstance();
         }
 
-        public List<DetailViewModel> getList() {
-            List<DetailViewModel> result = source.Details.Select(rec => new DetailViewModel {
-                ID = rec.ID,
-                DetailName = rec.DetailName
-            }).ToList();
-            return result;
+        public List<DetailViewModel> GetList() {
+            List<DetailViewModel> result = new List<DetailViewModel>();
+            for ( int i = 0; i < source.Details.Count; ++i ) {
+                result.Add(new DetailViewModel {
+                    ID = source.Details[i].ID,
+                    DetailName = source.Details[i].DetailName
+                });
+            }
 
+            return result;
         }
 
-        public DetailViewModel getElement(int id) {
-            Detail element = source.Details.FirstOrDefault(rec => rec.ID == id);
-            if (element != null) {
-                return new DetailViewModel {
-                    ID = element.ID,
-                    DetailName = element.DetailName
-                };
+        public DetailViewModel GetElement(int id) {
+            for ( int i = 0; i < source.Details.Count; ++i ) {
+                if ( source.Details[i].ID == id )
+                    return new DetailViewModel {
+                        ID = source.Details[i].ID,
+                        DetailName = source.Details[i].DetailName
+                    };
             }
+
             throw new Exception("Элемент не найден");
         }
 
-        public void addElem(DetailBindingModel model) {
-            Detail element = source.Details.FirstOrDefault(rec => rec.DetailName == model.DetailName);
-            if (element != null) {
-                throw new Exception("Уже есть компонент с таким названием");
+        public void AddElem(DetailBindingModel model) {
+            int maxID = 0;
+            for ( int i = 0; i < source.Details.Count; ++i ) {
+                if ( source.Details[i].ID > maxID )
+                    maxID = source.Details[i].ID;
+                if ( source.Details[i].DetailName.Equals(model.DetailName) )
+                    throw new Exception("Уже есть такой компонент");
             }
-            int maxId = source.Details.Count > 0 ? source.Details.Max(rec =>
-           rec.ID) : 0;
+
             source.Details.Add(new Detail {
-                ID = maxId + 1,
+                ID = maxID + 1,
                 DetailName = model.DetailName
             });
-
         }
 
-        public void updElem(DetailBindingModel model) {
-            Detail element = source.Details.FirstOrDefault(rec => rec.DetailName == 
-            model.DetailName && rec.ID != model.ID);
-            if (element != null) {
-                throw new Exception("Уже есть компонент с таким названием");
+        public void UpdElem(DetailBindingModel model) {
+            int index = -1;
+            for ( int i = 0; i < source.Details.Count; ++i ) {
+                if ( source.Details[i].ID == model.ID )
+                    index = i;
+                if ( source.Details[i].DetailName.Equals(model.DetailName) &&
+                     source.Details[i].ID != model.ID )
+                    throw new Exception("Уже есть такой компонент");
             }
-            element = source.Details.FirstOrDefault(rec => rec.ID == model.ID);
-            if (element == null) {
+
+            if ( index == -1 )
                 throw new Exception("Элемент не найден");
-            }
-            element.DetailName = model.DetailName;
+            source.Details[index].DetailName = model.DetailName;
         }
 
-        public void delElem(int id) {
-            Detail element = source.Details.FirstOrDefault(rec => rec.ID == id);
-            if (element != null) {
-                source.Details.Remove(element);
-            } else {
-                throw new Exception("Элемент не найден");
+        public void DelElem(int id) {
+            for ( int i = 0; i < source.Customers.Count; ++i ) {
+                if ( source.Details[i].ID == id ) {
+                    source.Details.RemoveAt(i);
+                    return;
+                }
             }
 
+            throw new Exception("Элемент не найден");
         }
     }
 }

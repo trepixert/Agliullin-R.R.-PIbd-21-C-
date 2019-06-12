@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ConfectioneryProject;
 using ConfectioneryShopModel;
 
@@ -17,7 +13,7 @@ namespace ConfectioneryShopImplement {
         public List<Storage> Storages { get; set; }
         public List<StorageDetail> StorageDetails { get; set; }
 
-        private DataListSingleton(){
+        private DataListSingleton() {
             Customers = new List<Customer>();
             Details = new List<Detail>();
             Orders = new List<Order>();
@@ -28,7 +24,7 @@ namespace ConfectioneryShopImplement {
         }
 
         public static DataListSingleton getInstance() {
-            if (instance == null)
+            if ( instance == null )
                 instance = new DataListSingleton();
             return instance;
         }

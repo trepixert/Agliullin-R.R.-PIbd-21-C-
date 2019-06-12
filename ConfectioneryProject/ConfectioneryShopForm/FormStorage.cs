@@ -34,12 +34,12 @@ namespace ConfectioneryShopForm {
             }
             try {
                 if (id.HasValue) {
-                    service.updElem(new StorageBindingModel {
+                    service.UpdElem(new StorageBindingModel {
                         ID = id.Value,
                         StorageName = textBoxName.Text
                     });
                 } else {
-                    service.addElem(new StorageBindingModel {
+                    service.AddElem(new StorageBindingModel {
                         StorageName = textBoxName.Text
                     });
                 }
@@ -61,7 +61,7 @@ namespace ConfectioneryShopForm {
         private void FormStorage_Load(object sender, EventArgs e) {
             if (id.HasValue) {
                 try {
-                    StorageViewModel view = service.getElement(id.Value);
+                    StorageViewModel view = service.GetElement(id.Value);
                     if (view != null) {
                         textBoxName.Text = view.StorageName;
                         dataGridView.DataSource = view.StorageDetails;
