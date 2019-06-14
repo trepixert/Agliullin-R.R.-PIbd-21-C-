@@ -11,5 +11,6 @@ namespace ConfectionaryWeb {
         public static IOutputService OutputService { get; } = new OutputServiceDB(Context);
         public static IMainService MainService { get; } = new MainServiceDB(Context);
         public static IStorageService StorageService { get; } = new StorageServiceDB(Context);
+        public static IReportService ReportService { get; } = new ReportServiceDB(Context);
     }
 }

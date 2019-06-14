@@ -1,0 +1,11 @@
+@model ConfectioneryShopModelServiceDAL.LogicInterface.IReportService
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm("Index", "Report", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Save File Now" />
+}
