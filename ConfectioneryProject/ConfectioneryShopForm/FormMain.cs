@@ -18,10 +18,12 @@ namespace ConfectioneryShopForm {
         [Dependency]
         public new IUnityContainer Container { get; set; }
         private readonly IMainService service;
+        private readonly IReportService reportService;
 
-        public ConfectioneryShopForm(IMainService service) {
+        public ConfectioneryShopForm(IMainService service, IReportService reportService) {
             InitializeComponent();
             this.service = service;
+            this.reportService = reportService;
         }
 
         private void ConfectioneryShopForm_Load(object sender, EventArgs e) {
@@ -121,5 +123,35 @@ namespace ConfectioneryShopForm {
             form.ShowDialog();
             LoadData();
         }
+
+        private void ценыПродуктовToolStripMenuItem_Click(object sender, EventArgs e) {
+            SaveFileDialog sfd = new SaveFileDialog {
+                Filter = "doc|*.doc|docx|*.docx"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK) {
+                try {
+                    reportService.SaveOutputPrice(new ReportBindingModel {
+                        FileName = sfd.FileName
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void загруженностьСкладовToolStripMenuItem_Click(object sender, EventArgs e) {
+            var form = Container.Resolve<FormStoragesLoad>();
+            form.ShowDialog();
+        }
+
+        private void заказыКлиентовToolStripMenuItem_Click(object sender, EventArgs e) {
+            var form = Container.Resolve<FormCustomerOrder>();
+            form.ShowDialog();
+        }
+
+
     }
 }
