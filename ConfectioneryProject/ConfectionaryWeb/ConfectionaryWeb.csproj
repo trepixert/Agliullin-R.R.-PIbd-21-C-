@@ -133,6 +133,8 @@
     </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Shared\FormStoragesLoad.aspx.cs" />
+    <Compile Include="Views\Shared\FormStoragesLoad.aspx.designer.cs" />
     <Compile Include="Views\Shared\ReportViewer.aspx.cs" />
     <Compile Include="Views\Shared\ReportViewer.aspx.designer.cs" />
   </ItemGroup>
@@ -165,7 +167,6 @@
     <Content Include="Views\Detail\Create.cshtml" />
     <Content Include="Views\Detail\Edit.cshtml" />
     <Content Include="Views\Detail\Index.cshtml" />
-    <Content Include="Views\Home\CustomerOrder.cshtml" />
     <Content Include="Views\OutputOrder\Create.cshtml" />
     <Content Include="Views\OutputOrder\Index.cshtml" />
     <Content Include="Views\Outputs\Index.cshtml" />
@@ -224,6 +225,9 @@
       <Project>{577c3322-1590-4829-8492-a8aa4ce2a2dc}</Project>
       <Name>ConfectioneryShopModelServiceDAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Report.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

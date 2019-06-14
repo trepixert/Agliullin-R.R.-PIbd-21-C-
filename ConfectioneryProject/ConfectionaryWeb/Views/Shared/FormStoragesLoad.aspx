@@ -1,20 +1,24 @@
-<%@ Page Language="C#" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FormStoragesLoad.aspx.cs" Inherits="ConfectionaryWeb.FormStoragesLoad" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<script runat="server">
-
-</script>
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Title</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
 </head>
 <body>
-<form id="HtmlForm" runat="server">
+    <form id="form1" runat="server">
     <div>
-        
+    
+        <asp:Button ID="ButtonSaveExcel" runat="server" OnClick="ButtonSaveExcel_Click" Text="Сохранить в Excel" />
+        <br />
+        <asp:Table ID="Table" runat="server" BorderColor="Black" BorderStyle="Solid" GridLines="Both">
+        </asp:Table>
+        <br />
+        <asp:Button ID="ButtonBack" runat="server" OnClick="ButtonBack_Click" Text="Назад" />
+    
     </div>
-</form>
+    </form>
 </body>
 </html>

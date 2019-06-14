@@ -27,7 +27,7 @@ namespace ConfectionaryWeb.Controllers {
         }
 
         public ActionResult PrintStoragesLoad() {
-            /*Response.Clear();
+            Response.Clear();
             Response.Buffer = true;
             Response.AddHeader("Content-Disposition", "attachment; filename=StoragesLoad.xls");
             Response.ContentType = "application/vnd.ms-excel";
@@ -38,11 +38,11 @@ namespace ConfectionaryWeb.Controllers {
                 });
                 Response.WriteFile("C:\\Temp\\SLoad.xls");
             }
-            catch ( Exception ex ) {
+            catch ( Exception ) {
                 Response.Write("Error");
             }
 
-            Response.End();*/
+            Response.End();
             return View("StoragesLoad/Index");
         }
 

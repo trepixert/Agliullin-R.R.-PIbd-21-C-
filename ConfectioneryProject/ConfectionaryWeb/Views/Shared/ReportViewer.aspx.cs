@@ -18,7 +18,7 @@ namespace ConfectionaryWeb {
             }
 
             try {
-                ReportParameter parameter = new ReportParameter("ReportParameterPeriod",
+                ReportParameter parameter = new ReportParameter("ReportParameterCustomer",
                 "c " + Calendar1.SelectedDate.ToShortDateString() +
                 " по " + Calendar2.SelectedDate.ToShortDateString());
                 
@@ -28,7 +28,7 @@ namespace ConfectionaryWeb {
                     DateFrom = Calendar1.SelectedDate,
                     DateTo = Calendar2.SelectedDate
                 });
-                ReportDataSource source = new ReportDataSource("DataSetBookings", dataSource);
+                ReportDataSource source = new ReportDataSource("DataSetOrders", dataSource);
                 ReportViewer1.LocalReport.DataSources.Add(source);
                 ReportViewer1.DataBind();
             }

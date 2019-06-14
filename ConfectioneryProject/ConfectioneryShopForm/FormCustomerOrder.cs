@@ -24,9 +24,6 @@ namespace ConfectioneryShopForm {
             this.service = service;
         }
 
-        private void FormCustomerOrder_Load(object sender, EventArgs e) {
-           
-        }
 
         private void format_Button_Click(object sender, EventArgs e) {
             if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date) {

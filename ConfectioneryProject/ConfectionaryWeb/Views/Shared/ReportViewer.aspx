@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportViewer.aspx.cs" Inherits="ConfectionaryWeb.ReportViewer"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ReportViewer.aspx.cs" Inherits="ConfectionaryWeb.ReportViewer"%>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -27,9 +27,9 @@
 
     <br/>
     <rsweb:ReportViewer ID="ReportViewer1" runat="server" ClientIDMode="AutoID" InternalBorderColor="204, 204, 204" InternalBorderStyle="Solid" InternalBorderWidth="1px" style="margin-top: 0px" ToolBarItemBorderStyle="Solid" ToolBarItemBorderWidth="1px" ToolBarItemPressedBorderColor="51, 102, 153" ToolBarItemPressedBorderStyle="Solid" ToolBarItemPressedBorderWidth="1px" ToolBarItemPressedHoverBackColor="153, 187, 226">
-        <LocalReport ReportPath="ReportConsumerBookings.rdlc">
+        <LocalReport ReportPath="Report.rdlc">
             <DataSources>
-                <rsweb1:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSet1"/>
+                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetOrders"/>
             </DataSources>
         </LocalReport>
     </rsweb:ReportViewer>
