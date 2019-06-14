@@ -21,5 +21,17 @@ namespace ConfectionaryWeb.Controllers {
         public ActionResult Main() {
             return RedirectToAction("Index", "OutputOrder");
         }
+
+        public ActionResult Price() {
+            return RedirectToAction("PrintPrice", "Report");
+        }
+
+        public ActionResult StorageLoad() {
+            return RedirectToAction("PrintStoragesLoad", "Report");
+        }
+        
+        public ActionResult CustomerOrder() {
+            return View();
+        }
     }
 }

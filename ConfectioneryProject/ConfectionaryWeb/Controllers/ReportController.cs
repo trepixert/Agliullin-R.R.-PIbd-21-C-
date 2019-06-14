@@ -1,38 +1,53 @@
-using System.IO;
-using System.Web;
+using System;
 using System.Web.Mvc;
+using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 
 namespace ConfectionaryWeb.Controllers {
     public class ReportController : Controller {
-        private IReportService _reportService = Globals.ReportService;
+        private IReportService reportService = Globals.ReportService;
 
-        public ActionResult Index() {
-            return View();
-        }
-        
-        [HttpPost]
-        public ActionResult SavePricePost() {
-            HttpResponse response = System.Web.HttpContext.Current.Response;
-            HttpResponse resp = System.Web.HttpContext.Current.Response;
-            string filename = "thisfilename.txt";
-            string destFolder =  @"D:\NET\MvcApplication2\MvcApplication2\temp";
-            string filePath = Path.Combine(destFolder, filename);
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                writer.Write("Word ");
-                writer.WriteLine("word 2");
-                writer.WriteLine("Line");
-                writer.Flush();
-                writer.Close();
+        public ActionResult PrintPrice() {
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("Content-Disposition", "filename=Price.docx");
+            Response.ContentType = "application/vnd.ms-word";
+            try {
+                reportService.SaveOutputPrice(new ReportBindingModel {
+                    FileName = "С:\\Temp\\Price.docx"
+                });
+                Response.WriteFile("С:\\Temp\\Price.docx");
+            }
+            catch ( Exception ) {
+                Response.Write("Error");
             }
 
-            resp.ContentType = "application/text";
-            resp.AppendHeader("content-disposition", "attachment; filename=" + "thisfilename.txt");
-            response.WriteFile(filePath);
-            response.Flush();
-            response.End();
-            return View();
+            Response.End();
+            return View("PrintPrices/PrintPrice");
+        }
+
+        public ActionResult PrintStoragesLoad() {
+            /*Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("Content-Disposition", "attachment; filename=StoragesLoad.xls");
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            try {
+                reportService.SaveStorageLoad(new ReportBindingModel {
+                    FileName = "C:\\Temp\\SLoad.xls"
+                });
+                Response.WriteFile("C:\\Temp\\SLoad.xls");
+            }
+            catch ( Exception ex ) {
+                Response.Write("Error");
+            }
+
+            Response.End();*/
+            return View("StoragesLoad/Index");
+        }
+
+        public ActionResult CustomerOrders() {
+            return View("CustomerOrders/Index");
         }
     }
 }

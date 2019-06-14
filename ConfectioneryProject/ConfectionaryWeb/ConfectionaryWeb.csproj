@@ -43,6 +43,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -130,6 +133,8 @@
     </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Shared\ReportViewer.aspx.cs" />
+    <Compile Include="Views\Shared\ReportViewer.aspx.designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -160,12 +165,17 @@
     <Content Include="Views\Detail\Create.cshtml" />
     <Content Include="Views\Detail\Edit.cshtml" />
     <Content Include="Views\Detail\Index.cshtml" />
+    <Content Include="Views\Home\CustomerOrder.cshtml" />
     <Content Include="Views\OutputOrder\Create.cshtml" />
     <Content Include="Views\OutputOrder\Index.cshtml" />
     <Content Include="Views\Outputs\Index.cshtml" />
     <Content Include="Views\Output\AddDetail.cshtml" />
     <Content Include="Views\Output\Index.cshtml" />
-    <Content Include="Views\Reports\OutputsPrice\Index.cshtml" />
+    <Content Include="Views\Report\CustomerOrders\Index.cshtml" />
+    <Content Include="Views\Report\PrintPrices\PrintPrice.cshtml" />
+    <Content Include="Views\Report\StoragesLoad\Index.cshtml" />
+    <Content Include="Views\Shared\FormStoragesLoad.aspx" />
+    <Content Include="Views\Shared\ReportViewer.aspx" />
     <Content Include="Views\Storage\Create.cshtml" />
     <Content Include="Views\Storage\List.cshtml" />
     <Content Include="Views\Storage\Edit.cshtml" />
@@ -185,8 +195,8 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data" />
-    <Folder Include="Models" />
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -235,7 +245,8 @@
           <IISUrl>http://localhost:5000/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl />
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
