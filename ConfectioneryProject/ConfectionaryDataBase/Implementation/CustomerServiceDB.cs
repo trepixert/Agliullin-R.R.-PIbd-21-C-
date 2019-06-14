@@ -14,7 +14,7 @@ namespace ConfectionaryDataBase.Implementation {
         public CustomerServiceDB(ConfDBContext context) {
             this.context = context;
         }
-        public List<CustomerViewModel> getList() {
+        public List<CustomerViewModel> GetList() {
             List<CustomerViewModel> result = context.Customers.Select(rec => new
            CustomerViewModel {
                 ID = rec.ID,
@@ -23,7 +23,7 @@ namespace ConfectionaryDataBase.Implementation {
             .ToList();
             return result;
         }
-        public CustomerViewModel getElement(int id) {
+        public CustomerViewModel GetElement(int id) {
             Customer element = context.Customers.FirstOrDefault(rec => rec.ID == id);
             if (element != null) {
                 return new CustomerViewModel {
@@ -33,7 +33,7 @@ namespace ConfectionaryDataBase.Implementation {
             }
             throw new Exception("Элемент не найден");
         }
-        public void addElem(CustomerBindingModel model) {
+        public void AddElem(CustomerBindingModel model) {
             Customer element = context.Customers.FirstOrDefault(rec => rec.CustomerFIO ==
            model.CustomerFIO);
             if (element != null) {
@@ -45,7 +45,7 @@ namespace ConfectionaryDataBase.Implementation {
             context.SaveChanges();
         }
 
-        public void updElem(CustomerBindingModel model) {
+        public void UpdElem(CustomerBindingModel model) {
             Customer element = context.Customers.FirstOrDefault(rec => rec.CustomerFIO ==
            model.CustomerFIO && rec.ID != model.ID);
             if (element != null) {
@@ -58,7 +58,7 @@ namespace ConfectionaryDataBase.Implementation {
             element.CustomerFIO = model.CustomerFIO;
             context.SaveChanges();
         }
-        public void delElem(int id) {
+        public void DelElem(int id) {
             Customer element = context.Customers.FirstOrDefault(rec => rec.ID == id);
             if (element != null) {
                 context.Customers.Remove(element);

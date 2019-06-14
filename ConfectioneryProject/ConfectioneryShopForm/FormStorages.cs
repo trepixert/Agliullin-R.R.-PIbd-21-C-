@@ -48,7 +48,7 @@ namespace ConfectioneryShopForm {
                     int id =
                Convert.ToInt32(dataGridViewStorages.SelectedRows[0].Cells[0].Value);
                     try {
-                        service.delElem(id);
+                        service.DelElem(id);
                     } catch (Exception ex) {
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                        MessageBoxIcon.Error);
@@ -68,7 +68,7 @@ namespace ConfectioneryShopForm {
 
         private void LoadData() {
             try {
-                List<StorageViewModel> list = service.getList();
+                List<StorageViewModel> list = service.GetList();
                 if (list != null) {
                     dataGridViewStorages.DataSource = list;
                     dataGridViewStorages.Columns[0].Visible = false;

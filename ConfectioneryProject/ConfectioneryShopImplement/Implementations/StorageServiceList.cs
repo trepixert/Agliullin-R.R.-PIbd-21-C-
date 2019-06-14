@@ -15,7 +15,7 @@ namespace ConfectioneryShopImplement.Implementations {
         public StorageServiceList() {
             source = DataListSingleton.getInstance();
         }
-        public List<StorageViewModel> getList() {
+        public List<StorageViewModel> GetList() {
             List<StorageViewModel> result = source.Storages
             .Select(rec => new StorageViewModel {
                 ID = rec.ID,
@@ -37,7 +37,7 @@ namespace ConfectioneryShopImplement.Implementations {
             return result;
         }
 
-        public StorageViewModel getElement(int id) {
+        public StorageViewModel GetElement(int id) {
             Storage element = source.Storages.FirstOrDefault(rec => rec.ID == id);
             if (element != null) {
                 return new StorageViewModel {
@@ -60,7 +60,7 @@ namespace ConfectioneryShopImplement.Implementations {
             throw new Exception("Элемент не найден");
         }
 
-        public void addElem(StorageBindingModel model) {
+        public void AddElem(StorageBindingModel model) {
             Storage element = source.Storages.FirstOrDefault(rec => rec.StorageName ==
             model.StorageName);
             if (element != null) {
@@ -73,7 +73,7 @@ namespace ConfectioneryShopImplement.Implementations {
             });
         }
 
-        public void updElem(StorageBindingModel model) {
+        public void UpdElem(StorageBindingModel model) {
             Storage element = source.Storages.FirstOrDefault(rec =>
             rec.StorageName == model.StorageName && rec.ID !=
            model.ID);
@@ -87,7 +87,7 @@ namespace ConfectioneryShopImplement.Implementations {
             element.StorageName = model.StorageName;
         }
 
-        public void delElem(int id) {
+        public void DelElem(int id) {
             Storage element = source.Storages.FirstOrDefault(rec => rec.ID == id);
             if (element != null) {
                 // при удалении удаляем все записи о компонентах на удаляемом складе

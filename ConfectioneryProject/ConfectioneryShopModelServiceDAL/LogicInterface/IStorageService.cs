@@ -8,10 +8,10 @@ using ConfectioneryShopModelServiceDAL.BindingModel;
 
 namespace ConfectioneryShopModelServiceDAL.LogicInterface {
     public interface IStorageService {
-        List<StorageViewModel> getList();
-        StorageViewModel getElement(int id);
-        void addElem(StorageBindingModel model);
-        void updElem(StorageBindingModel model);
-        void delElem(int id);
+        List<StorageViewModel> GetList();
+        StorageViewModel GetElement(int id);
+        void AddElem(StorageBindingModel model);
+        void UpdElem(StorageBindingModel model);
+        void DelElem(int id);
     }
 }
