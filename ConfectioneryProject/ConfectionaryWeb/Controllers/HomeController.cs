@@ -29,5 +29,9 @@ namespace ConfectionaryWeb.Controllers {
         public ActionResult StorageLoad() {
             return RedirectToAction("PrintStoragesLoad", "Report");
         }
+
+        public ActionResult CustomerOrders() {
+            return RedirectToAction("ClientOrders","Report");
+        }
     }
 }

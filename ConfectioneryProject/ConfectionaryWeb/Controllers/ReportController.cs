@@ -45,9 +45,27 @@ namespace ConfectionaryWeb.Controllers {
             Response.End();
             return View("StoragesLoad/Index");
         }
-
-        public ActionResult CustomerOrders() {
+        
+        [HttpGet]
+        public ActionResult ClientOrders()
+        {
+            //StorageName
+            //TotalCount
+            //Plumbings 
+            var _storage = new SelectList(reportService.GetStorageLoad(), "Id", "StorageName");
+            var _count = new SelectList(reportService.GetStorageLoad(), "Id", "TotalCount");
+            ViewBag.StorageName = _storage;
+            ViewBag.TotalCount = _count;
             return View("CustomerOrders/Index");
+        }
+
+        [HttpPost]
+        public FileResult ClientOrders(ReportBindingModel model) {
+            model.FileName = @"C:\Users\User\Documents\test.pdf";
+            reportService.SaveCustomerOrders(model);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(model.FileName);
+            string fileName = "test.pdf";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
     }
 }
