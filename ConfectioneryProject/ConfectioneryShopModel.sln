@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28922.388
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfectioneryShopModel", "ConfectioneryProject\ConfectioneryShopModel.csproj", "{19E8B4A6-1C11-4CA8-9260-61AFDEE0C012}"
 EndProject
@@ -12,6 +12,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfectioneryShopForm", "ConfectioneryShopForm\ConfectioneryShopForm.csproj", "{06D01AA5-AF0A-47B7-B006-619BBA88A583}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfectionaryDataBase", "ConfectionaryDataBase\ConfectionaryDataBase.csproj", "{B93E5284-9BE9-406A-87A2-CF438559055C}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfectionaryWeb", "ConfectionaryWeb\ConfectionaryWeb.csproj", "{89C0E225-0DA1-4DF4-B737-8AF5FC0BE692}"
 EndProject
 Global

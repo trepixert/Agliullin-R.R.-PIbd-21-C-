@@ -1,4 +1,4 @@
-﻿using System.Web.Mvc;
+﻿﻿using System.Web.Mvc;
 
 namespace ConfectionaryWeb.Controllers {
     public class HomeController : Controller {
@@ -20,6 +20,18 @@ namespace ConfectionaryWeb.Controllers {
 
         public ActionResult Main() {
             return RedirectToAction("Index", "OutputOrder");
+        }
+
+        public ActionResult Price() {
+            return RedirectToAction("PrintPrice", "Report");
+        }
+
+        public ActionResult StorageLoad() {
+            return RedirectToAction("PrintStoragesLoad", "Report");
+        }
+
+        public ActionResult CustomerOrders() {
+            return RedirectToAction("ClientOrders","Report");
         }
     }
 }
