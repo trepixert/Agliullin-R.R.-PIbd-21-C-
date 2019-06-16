@@ -20,16 +20,12 @@ namespace ConfectioneryShopForm {
             InitializeComponent();
         }
 
-        private void FormCustomerOrder_Load(object sender, EventArgs e)
-        {
-
+        private void FormCustomerOrder_Load(object sender, EventArgs e) {
             this.reportViewer.RefreshReport();
         }
 
-        private void buttonMake_Click(object sender, EventArgs e)
-        {
-            if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
-            {
+        private void format_Button_Click(object sender, EventArgs e) {
+            if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date) {
                 MessageBox.Show("Дата начала должна быть меньше даты окончания",
                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

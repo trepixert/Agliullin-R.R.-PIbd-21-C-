@@ -107,7 +107,6 @@
             this.Controls.Add(this.dateTimePickerFrom);
             this.Name = "FormCustomerOrder";
             this.Text = "Отчет по клиентам";
-            this.Load += new System.EventHandler(this.FormCustomerOrder_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
