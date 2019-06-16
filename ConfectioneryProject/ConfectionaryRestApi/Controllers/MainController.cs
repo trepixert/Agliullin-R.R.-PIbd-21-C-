@@ -9,14 +9,17 @@ using ConfectioneryShopModelServiceDAL.ViewModel;
 namespace ConfectionaryRestApi.Controllers {
     public class MainController : ApiController {
         private readonly IMainService _service;
-
         private readonly IImplementerService _serviceImplementer;
 
         public MainController(IMainService service, IImplementerService serviceImplementer) {
             _service = service;
             _serviceImplementer = serviceImplementer;
         }
-
+        public MainController(IMainService service)
+        {
+            _service = service;
+        }
+        
         [HttpGet]
         public IHttpActionResult GetList() {
             var list = _service.GetList();
@@ -26,7 +29,7 @@ namespace ConfectionaryRestApi.Controllers {
 
             return Ok(list);
         }
-
+        
         [HttpPost]
         public void CreateOrder(OrderBindingModel model) {
             _service.CreateOrder(model);
