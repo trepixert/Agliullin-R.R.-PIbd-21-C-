@@ -1,12 +1,15 @@
-﻿using ConfectioneryShopImplement.Implementations;
+﻿using ConfectionaryDataBase;
+using ConfectionaryDataBase.Implementation;
+using ConfectioneryShopImplement.Implementations;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 
 namespace ConfectionaryWeb {
     public static class Globals {
-        public static ICustomerService CustomerService { get; } = new CustomerServiceList();
-        public static IDetailService DetailService { get; } = new DetailServiceList();
-        public static IOutputService OutputService { get; } = new OutputServiceList();
-        public static IMainService MainService { get; } = new MainServiceList();
-        public static IStorageService StorageService { get; } = new StorageServiceList();
+        public static ConfDBContext Context { get; } = new ConfDBContext();
+        public static ICustomerService CustomerService { get; } = new CustomerServiceDB(Context);
+        public static IDetailService DetailService { get; } = new DetailServiceDB(Context);
+        public static IOutputService OutputService { get; } = new OutputServiceDB(Context);
+        public static IMainService MainService { get; } = new MainServiceDB(Context);
+        public static IStorageService StorageService { get; } = new StorageServiceDB(Context);
     }
 }

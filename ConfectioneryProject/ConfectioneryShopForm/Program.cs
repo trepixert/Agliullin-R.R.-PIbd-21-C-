@@ -7,6 +7,9 @@ using Unity;
 using Unity.Lifetime;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopImplement.Implementations;
+using ConfectionaryDataBase;
+using ConfectionaryDataBase.Implementation;
+using System.Data.Entity;
 
 namespace ConfectioneryShopForm {
     static class Program {
@@ -23,16 +26,18 @@ namespace ConfectioneryShopForm {
 
         public static IUnityContainer BuildUnityContainer() {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<ICustomerService, CustomerServiceList>(new
+            currentContainer.RegisterType<DbContext, ConfDBContext>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ICustomerService, CustomerServiceDB>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IDetailService, DetailServiceList>(new
+            currentContainer.RegisterType<IDetailService, DetailServiceDB>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IOutputService, OutputServiceList>(new
+            currentContainer.RegisterType<IOutputService, OutputServiceDB>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IMainService, MainServiceList>(new
+            currentContainer.RegisterType<IMainService, MainServiceDB>(new
            HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IStorageService,StorageServiceList>(new 
+            currentContainer.RegisterType<IStorageService,StorageServiceDB>(new 
            HierarchicalLifetimeManager());
+
             return currentContainer;
         }
     }

@@ -200,6 +200,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConfectionaryDataBase\ConfectionaryDataBase.csproj">
+      <Project>{b93e5284-9be9-406a-87a2-cf438559055c}</Project>
+      <Name>ConfectionaryDataBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConfectioneryShopImplement\ConfectioneryShopImplement.csproj">
       <Project>{bc70f3af-21d5-48c2-a42f-0a71636faf57}</Project>
       <Name>ConfectioneryShopImplement</Name>

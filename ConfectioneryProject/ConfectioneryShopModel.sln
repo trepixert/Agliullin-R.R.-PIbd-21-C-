@@ -11,6 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfectioneryShopImplement"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfectioneryShopForm", "ConfectioneryShopForm\ConfectioneryShopForm.csproj", "{06D01AA5-AF0A-47B7-B006-619BBA88A583}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfectionaryDataBase", "ConfectionaryDataBase\ConfectionaryDataBase.csproj", "{B93E5284-9BE9-406A-87A2-CF438559055C}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfectionaryWeb", "ConfectionaryWeb\ConfectionaryWeb.csproj", "{89C0E225-0DA1-4DF4-B737-8AF5FC0BE692}"
 EndProject
 Global
@@ -35,6 +36,10 @@ Global
 		{06D01AA5-AF0A-47B7-B006-619BBA88A583}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06D01AA5-AF0A-47B7-B006-619BBA88A583}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06D01AA5-AF0A-47B7-B006-619BBA88A583}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B93E5284-9BE9-406A-87A2-CF438559055C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93E5284-9BE9-406A-87A2-CF438559055C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B93E5284-9BE9-406A-87A2-CF438559055C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B93E5284-9BE9-406A-87A2-CF438559055C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89C0E225-0DA1-4DF4-B737-8AF5FC0BE692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89C0E225-0DA1-4DF4-B737-8AF5FC0BE692}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89C0E225-0DA1-4DF4-B737-8AF5FC0BE692}.Release|Any CPU.ActiveCfg = Release|Any CPU

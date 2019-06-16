@@ -11,5 +11,7 @@ namespace ConfectioneryProject {
         public OrderStatus Status { get; set; }
         public DateTime DateCreate { get; set; }
         public DateTime? DateImplement { get; set; }
+        public virtual Customer customer { get; set; }
+        public virtual Output output { get; set; }
     }
 }
