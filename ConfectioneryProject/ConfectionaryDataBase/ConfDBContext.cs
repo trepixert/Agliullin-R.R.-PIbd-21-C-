@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using ConfectioneryProject;
 using ConfectioneryShopModel;
 
-namespace ConfectionaryDataBase{
-    public class ConfDBContext : DbContext{
-        public ConfDBContext():base("ConfDBContext") {
+namespace ConfectionaryDataBase {
+    public class ConfDBContext : DbContext {
+        public ConfDBContext() : base("ConfDBContext") {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
             var ensureDLLIsCopied =
-           System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+                SqlProviderServices.Instance;
         }
 
         public virtual DbSet<Customer> Customers { get; set; }
@@ -24,5 +20,6 @@ namespace ConfectionaryDataBase{
         public virtual DbSet<Storage> Storages { get; set; }
         public virtual DbSet<StorageDetail> StorageDetails { get; set; }
         public virtual DbSet<Implementer> Implementers { get; set; }
+        public virtual DbSet<MessageInfo> MessageInfos { get; set; }
     }
 }

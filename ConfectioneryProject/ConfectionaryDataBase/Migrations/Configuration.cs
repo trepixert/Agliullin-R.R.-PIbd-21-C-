@@ -1,19 +1,12 @@
-namespace ConfectionaryDataBase.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ConfectionaryDataBase.ConfDBContext>
-    {
-        public Configuration()
-        {
+namespace ConfectionaryDataBase.Migrations {
+    internal sealed class Configuration : DbMigrationsConfiguration<ConfDBContext> {
+        public Configuration() {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ConfectionaryDataBase.ConfDBContext context)
-        {
+        protected override void Seed(ConfDBContext context) {
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

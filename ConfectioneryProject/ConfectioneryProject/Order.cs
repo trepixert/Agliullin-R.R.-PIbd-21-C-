@@ -1,11 +1,6 @@
-﻿using ConfectioneryShopModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace ConfectioneryProject {
+namespace ConfectioneryShopModel {
     public class Order {
         public int ID { get; set; }
         public int CustomerID { get; set; }
@@ -17,7 +12,7 @@ namespace ConfectioneryProject {
         public OrderStatus Status { get; set; }
         public DateTime DateCreate { get; set; }
         public DateTime? DateImplement { get; set; }
-        public virtual Customer customer { get; set; }
+        public virtual Customer Customer { get; set; }
         public virtual Output output { get; set; }
         public virtual Implementer Implementer { get; set; }
     }
