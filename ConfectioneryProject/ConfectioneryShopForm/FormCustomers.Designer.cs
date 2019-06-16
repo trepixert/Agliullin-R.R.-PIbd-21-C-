@@ -91,7 +91,7 @@
             this.Controls.Add(this.dataGridViewOfCustomers);
             this.Name = "FormCustomers";
             this.Text = "Клиенты";
-            this.Load += new System.EventHandler(this.FormCustomer_Load);
+            this.Load += new System.EventHandler(this.FormCustomers_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOfCustomers)).EndInit();
             this.ResumeLayout(false);
 

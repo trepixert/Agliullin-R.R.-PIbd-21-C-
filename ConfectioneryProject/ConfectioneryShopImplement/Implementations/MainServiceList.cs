@@ -129,5 +129,9 @@ namespace ConfectioneryShopImplement.Implementations {
             }
         }
 
+        public List<OrderViewModel> GetFreeOrders()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

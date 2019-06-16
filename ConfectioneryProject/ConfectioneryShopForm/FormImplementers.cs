@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConfectioneryShopModelServiceDAL.BindingModel;
+using ConfectioneryShopModelServiceDAL.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,19 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ConfectioneryShopModelServiceDAL.BindingModel;
-using ConfectioneryShopModelServiceDAL.LogicInterface;
-using ConfectioneryShopModelServiceDAL.ViewModel;
 
-namespace ConfectioneryShopForm {
-    public partial class FormCustomers : Form {
-
-        public FormCustomers()
+namespace ConfectioneryShopForm
+{
+    public partial class FormImplementers : Form
+    {
+        public FormImplementers()
         {
             InitializeComponent();
         }
 
-        private void FormCustomers_Load(object sender, EventArgs e)
+        private void FormImplementers_Load(object sender, EventArgs e)
         {
             LoadData();
         }
@@ -28,12 +28,12 @@ namespace ConfectioneryShopForm {
         {
             try
             {
-                List<CustomerBindingModel> list = APICustomer.GetRequest<List<CustomerBindingModel>>("api/Customer/GetList");
+                List<ImplementerViewModel> list = APICustomer.GetRequest<List<ImplementerViewModel>>("api/Implementer/GetList");
                 if (list != null)
                 {
-                    dataGridViewOfCustomers.DataSource = list;
-                    dataGridViewOfCustomers.Columns[0].Visible = false;
-                    dataGridViewOfCustomers.Columns[1].AutoSizeMode =
+                    dataGridView.DataSource = list;
+                    dataGridView.Columns[0].Visible = false;
+                    dataGridView.Columns[1].AutoSizeMode =
                     DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
@@ -43,9 +43,10 @@ namespace ConfectioneryShopForm {
                MessageBoxIcon.Error);
             }
         }
+
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var form = new FormCustomer();
+            var form = new FormImplementer();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData();
@@ -54,11 +55,11 @@ namespace ConfectioneryShopForm {
 
         private void buttonUpd_Click(object sender, EventArgs e)
         {
-            if (dataGridViewOfCustomers.SelectedRows.Count == 1)
+            if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = new FormCustomer
+                var form = new FormImplementer
                 {
-                    Id = Convert.ToInt32(dataGridViewOfCustomers.SelectedRows[0].Cells[0].Value)
+                    Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value)
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -70,16 +71,16 @@ namespace ConfectioneryShopForm {
 
         private void buttonDel_Click(object sender, EventArgs e)
         {
-            if (dataGridViewOfCustomers.SelectedRows.Count == 1)
+            if (dataGridView.SelectedRows.Count == 1)
             {
                 if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo,
                MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     int id =
-                   Convert.ToInt32(dataGridViewOfCustomers.SelectedRows[0].Cells[0].Value);
+                   Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        APICustomer.PostRequest<CustomerBindingModel, bool>("api/Customer/DelElement", new CustomerBindingModel { ID = id });
+                        APICustomer.PostRequest<ImplementerBindingModel, bool>("api/Implementer/DelElement", new ImplementerBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {

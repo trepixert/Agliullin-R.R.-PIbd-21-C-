@@ -14,5 +14,7 @@ namespace ConfectioneryShopModelServiceDAL.LogicInterface {
         void finishOrder(OrderBindingModel model);
         void payOrder(OrderBindingModel model);
         void putDetailOnStorage(StorageDetailBindingModel model);
+
+        List<OrderViewModel> GetFreeOrders();
     }
 }

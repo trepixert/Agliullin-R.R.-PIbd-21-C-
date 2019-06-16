@@ -65,12 +65,12 @@ namespace ConfectionaryDataBase.Implementation {
                         throw new Exception("Заказ не в статусе \"Принят\"");
                     }
                     var outputDetails = context.DetailOutputs.Include(rec =>
-                    rec.Details).Where(rec => rec.OutputID == element.OutputID);
+                    rec.Details).Where(rec => rec.OutputID == element.OutputID).ToList();
                     // списываем
                     foreach (var outputDetail in outputDetails) {
                         int countOnStorages = outputDetail.Count * element.Count;
                         var storageDetails = context.StorageDetails.Where(rec =>
-                        rec.DetailID == outputDetail.DetailID);
+                        rec.DetailID == outputDetail.DetailID).ToList();
                         foreach (var stockComponent in storageDetails) {
                             // компонентов на одном слкаде может не хватать
                             if (stockComponent.Count >= countOnStorages) {
@@ -93,7 +93,8 @@ namespace ConfectionaryDataBase.Implementation {
                     element.Status = OrderStatus.Выполняется;
                     context.SaveChanges();
                     transaction.Commit();
-                } catch (Exception) {
+                } catch (Exception ex) {
+                    Console.WriteLine(ex.StackTrace);
                     transaction.Rollback();
                     throw;
                 }
@@ -137,5 +138,18 @@ namespace ConfectionaryDataBase.Implementation {
             context.SaveChanges();
         }
 
+
+        public List<OrderViewModel> GetFreeOrders()
+        {
+            List<OrderViewModel> result = context.Orders
+            .Where(x => x.Status == OrderStatus.Принят || x.Status ==
+           OrderStatus.НедостаточноРесурсов)
+            .Select(rec => new OrderViewModel
+            {
+                ID = rec.ID
+            })
+            .ToList();
+            return result;
+        }
     }
 }

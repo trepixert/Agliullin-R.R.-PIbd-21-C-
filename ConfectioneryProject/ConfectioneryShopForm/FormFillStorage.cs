@@ -38,7 +38,7 @@ namespace ConfectioneryShopForm {
             }
             try
             {
-                APICustomer.PostRequest<StorageDetailBindingModel, bool>("api/Storage/PutDetailOnStorage", new StorageDetailBindingModel
+                APICustomer.PostRequest<StorageDetailBindingModel, bool>("api/Main/putDetailOnStorage", new StorageDetailBindingModel
                 {
                     DetailID = Convert.ToInt32(comboBoxDetail.SelectedValue),
                     StorageID = Convert.ToInt32(comboBoxStorage.SelectedValue),

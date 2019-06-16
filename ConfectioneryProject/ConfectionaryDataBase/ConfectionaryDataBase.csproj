@@ -84,6 +84,7 @@
     <Compile Include="ConfDBContext.cs" />
     <Compile Include="Implementation\CustomerServiceDB.cs" />
     <Compile Include="Implementation\DetailServiceDB.cs" />
+    <Compile Include="Implementation\ImplementerServiceDB.cs" />
     <Compile Include="Implementation\MainServiceDB.cs" />
     <Compile Include="Implementation\OutputServiceDB.cs" />
     <Compile Include="Implementation\ReportServiceDB.cs" />
@@ -91,6 +92,10 @@
     <Compile Include="Migrations\201903230545187_FirstMigration.cs" />
     <Compile Include="Migrations\201903230545187_FirstMigration.Designer.cs">
       <DependentUpon>201903230545187_FirstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905301026493_SM.cs" />
+    <Compile Include="Migrations\201905301026493_SM.Designer.cs">
+      <DependentUpon>201905301026493_SM.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,6 +125,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903230545187_FirstMigration.resx">
       <DependentUpon>201903230545187_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905301026493_SM.resx">
+      <DependentUpon>201905301026493_SM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

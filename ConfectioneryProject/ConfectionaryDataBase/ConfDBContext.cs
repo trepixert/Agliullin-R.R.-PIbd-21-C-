@@ -23,5 +23,6 @@ namespace ConfectionaryDataBase{
         public virtual DbSet<ConnectionBetweenDetailAndOutput> DetailOutputs { get; set; }
         public virtual DbSet<Storage> Storages { get; set; }
         public virtual DbSet<StorageDetail> StorageDetails { get; set; }
+        public virtual DbSet<Implementer> Implementers { get; set; }
     }
 }
