@@ -15,7 +15,7 @@ namespace ConfectioneryShopImplement.Implementations {
             source = DataListSingleton.getInstance();
         }
 
-        public List<OutputViewModel> getList() {
+        public List<OutputViewModel> GetList() {
             List<OutputViewModel> result = source.Outputs
                 .Select(rec => new OutputViewModel {
                     ID = rec.ID,
@@ -37,7 +37,7 @@ namespace ConfectioneryShopImplement.Implementations {
             return result;
         }
 
-        public OutputViewModel getElement(int id) {
+        public OutputViewModel GetElement(int id) {
             Output element = source.Outputs.FirstOrDefault(rec => rec.ID == id);
             if ( element != null ) {
                 return new OutputViewModel {
@@ -61,7 +61,7 @@ namespace ConfectioneryShopImplement.Implementations {
             throw new Exception("Элемент не найден");
         }
 
-        public void addElem(OutputBindingModel model) {
+        public void AddElem(OutputBindingModel model) {
             Output element = source.Outputs.FirstOrDefault(rec => rec.OutputName == model.OutputName);
             if ( element != null ) {
                 throw new Exception("Уже есть изделие с таким названием");
@@ -93,7 +93,7 @@ namespace ConfectioneryShopImplement.Implementations {
             }
         }
 
-        public void updElem(OutputBindingModel model) {
+        public void UpdElem(OutputBindingModel model) {
             Output element = source.Outputs.FirstOrDefault(rec => rec.OutputName ==
                                                                   model.OutputName && rec.ID != model.ID);
             if ( element != null ) {
@@ -146,7 +146,7 @@ namespace ConfectioneryShopImplement.Implementations {
             }
         }
 
-        public void delElem(int id) {
+        public void DelElem(int id) {
             Output element = source.Outputs.FirstOrDefault(rec => rec.ID == id);
             if ( element != null ) {
                 // удаяем записи по компонентам при удалении изделия

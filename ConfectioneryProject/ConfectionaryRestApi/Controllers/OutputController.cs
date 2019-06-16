@@ -13,7 +13,7 @@ namespace ConfectionaryRestApi.Controllers {
 
         [HttpGet]
         public IHttpActionResult GetList() {
-            var list = _service.getList();
+            var list = _service.GetList();
             if ( list == null ) {
                 InternalServerError(new Exception("Нет данных"));
             }
@@ -23,7 +23,7 @@ namespace ConfectionaryRestApi.Controllers {
 
         [HttpGet]
         public IHttpActionResult Get(int id) {
-            var element = _service.getElement(id);
+            var element = _service.GetElement(id);
             if ( element == null ) {
                 InternalServerError(new Exception("Нет данных"));
             }
@@ -33,17 +33,17 @@ namespace ConfectionaryRestApi.Controllers {
 
         [HttpPost]
         public void AddElement(OutputBindingModel model) {
-            _service.addElem(model);
+            _service.AddElem(model);
         }
 
         [HttpPost]
         public void UpdElement(OutputBindingModel model) {
-            _service.updElem(model);
+            _service.UpdElem(model);
         }
 
         [HttpPost]
         public void DelElement(OutputBindingModel model) {
-            _service.delElem(model.ID);
+            _service.DelElem(model.ID);
         }
     }
 }

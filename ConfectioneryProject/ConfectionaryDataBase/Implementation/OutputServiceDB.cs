@@ -15,7 +15,7 @@ namespace ConfectionaryDataBase.Implementation {
             this.context = context;
         }
 
-        public List<OutputViewModel> getList() {
+        public List<OutputViewModel> GetList() {
             List<OutputViewModel> result = context.Outputs.Select(rec => new
                     OutputViewModel {
                         ID = rec.ID,
@@ -36,7 +36,7 @@ namespace ConfectionaryDataBase.Implementation {
             return result;
         }
 
-        public OutputViewModel getElement(int id) {
+        public OutputViewModel GetElement(int id) {
             Output element = context.Outputs.FirstOrDefault(rec => rec.ID == id);
             if ( element != null ) {
                 return new OutputViewModel {
@@ -59,7 +59,7 @@ namespace ConfectionaryDataBase.Implementation {
             throw new Exception("Элемент не найден");
         }
 
-        public void addElem(OutputBindingModel model) {
+        public void AddElem(OutputBindingModel model) {
             using ( var transaction = context.Database.BeginTransaction() ) {
                 try {
                     Output element = context.Outputs.FirstOrDefault(rec =>
@@ -100,7 +100,7 @@ namespace ConfectionaryDataBase.Implementation {
             }
         }
 
-        public void updElem(OutputBindingModel model) {
+        public void UpdElem(OutputBindingModel model) {
             using ( var transaction = context.Database.BeginTransaction() ) {
                 try {
                     Output element = context.Outputs.FirstOrDefault(rec =>
@@ -166,7 +166,7 @@ namespace ConfectionaryDataBase.Implementation {
             }
         }
 
-        public void delElem(int id) {
+        public void DelElem(int id) {
             using ( var transaction = context.Database.BeginTransaction() ) {
                 try {
                     Output element = context.Outputs.FirstOrDefault(rec => rec.ID ==

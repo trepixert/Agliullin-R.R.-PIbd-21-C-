@@ -14,7 +14,7 @@ namespace ConfectionaryDataBase.Implementation {
             this.context = context;
         }
 
-        public List<DetailViewModel> getList() {
+        public List<DetailViewModel> GetList() {
             List<DetailViewModel> result = context.Details.Select(rec => new
                     DetailViewModel {
                         ID = rec.ID,
@@ -24,7 +24,7 @@ namespace ConfectionaryDataBase.Implementation {
             return result;
         }
 
-        public DetailViewModel getElement(int id) {
+        public DetailViewModel GetElement(int id) {
             Detail element = context.Details.FirstOrDefault(rec => rec.ID == id);
             if ( element != null ) {
                 return new DetailViewModel {
@@ -36,7 +36,7 @@ namespace ConfectionaryDataBase.Implementation {
             throw new Exception("Элемент не найден");
         }
 
-        public void addElem(DetailBindingModel model) {
+        public void AddElem(DetailBindingModel model) {
             Detail element = context.Details.FirstOrDefault(rec => rec.DetailName ==
                                                                    model.DetailName);
             if ( element != null ) {
@@ -49,7 +49,7 @@ namespace ConfectionaryDataBase.Implementation {
             context.SaveChanges();
         }
 
-        public void updElem(DetailBindingModel model) {
+        public void UpdElem(DetailBindingModel model) {
             Detail element = context.Details.FirstOrDefault(rec => rec.DetailName ==
                                                                    model.DetailName && rec.ID != model.ID);
             if ( element != null ) {
@@ -65,7 +65,7 @@ namespace ConfectionaryDataBase.Implementation {
             context.SaveChanges();
         }
 
-        public void delElem(int id) {
+        public void DelElem(int id) {
             Detail element = context.Details.FirstOrDefault(rec => rec.ID == id);
             if ( element != null ) {
                 context.Details.Remove(element);
