@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Unity;
 using ConfectioneryShopModelServiceDAL.LogicInterface;
 using ConfectioneryShopModelServiceDAL.BindingModel;
 using ConfectioneryShopModelServiceDAL.ViewModel;
@@ -15,15 +14,8 @@ using ConfectioneryShopModelServiceDAL.ViewModel;
 namespace ConfectioneryShopForm {
     public partial class ConfectioneryShopForm : Form {
 
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
-        private readonly IMainService service;
-        private readonly IReportService reportService;
-
-        public ConfectioneryShopForm(IMainService service, IReportService reportService) {
+        public ConfectioneryShopForm() {
             InitializeComponent();
-            this.service = service;
-            this.reportService = reportService;
         }
 
         private void ConfectioneryShopForm_Load(object sender, EventArgs e) {
@@ -32,8 +24,10 @@ namespace ConfectioneryShopForm {
 
         private void LoadData() {
             try {
-                List<OrderViewModel> list = service.getList();
-                if (list != null) {
+                List<OrderViewModel> list =
+               APICustomer.GetRequest<List<OrderViewModel>>("api/Main/GetList");
+                if (list != null)
+                {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
@@ -49,22 +43,22 @@ namespace ConfectioneryShopForm {
         }
 
         private void клиентыToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormCustomers>();
+            var form = new FormCustomer();
             form.ShowDialog();
         }
 
         private void компонентыToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormDetails>();
+            var form = new FormDetails();
             form.ShowDialog();
         }
 
         private void изделияToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormOutputs>();
+            var form = new FormOutputs();
             form.ShowDialog();
         }
 
         private void createOrder_Button_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormCreateOrder>();
+            var form = new FormCreateOrder();
             form.ShowDialog();
             LoadData();
         }
@@ -73,7 +67,11 @@ namespace ConfectioneryShopForm {
             if (dataGridView.SelectedRows.Count == 1) {
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try {
-                    service.takeOrderInWork(new OrderBindingModel { ID = id });
+                    APICustomer.PostRequest<OrderBindingModel,
+                   bool>("api/Main/TakeOrderInWork", new OrderBindingModel
+                   {
+                       ID = id
+                   });
                     LoadData();
                 } catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
@@ -86,7 +84,11 @@ namespace ConfectioneryShopForm {
             if (dataGridView.SelectedRows.Count == 1) {
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try {
-                    service.finishOrder(new OrderBindingModel { ID = id });
+                    APICustomer.PostRequest<OrderBindingModel,
+                   bool>("api/Main/FinishOrder", new OrderBindingModel
+                   {
+                       ID = id
+                   });
                     LoadData();
                 } catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
@@ -99,7 +101,11 @@ namespace ConfectioneryShopForm {
             if (dataGridView.SelectedRows.Count == 1) {
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 try {
-                    service.payOrder(new OrderBindingModel { ID = id });
+                    APICustomer.PostRequest<OrderBindingModel, bool>("api/Main/PayOrder",
+                  new OrderBindingModel
+                  {
+                      ID = id
+                  });
                     LoadData();
                 } catch (Exception ex) {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
@@ -113,29 +119,37 @@ namespace ConfectioneryShopForm {
         }
 
         private void складыToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormStorages>();
+            var form = new FormStorages();
             form.ShowDialog();
             LoadData();
         }
 
         private void пополнитьСкладToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormFillStorage>();
+            var form = new FormFillStorage();
             form.ShowDialog();
             LoadData();
         }
 
-        private void ценыПродуктовToolStripMenuItem_Click(object sender, EventArgs e) {
-            SaveFileDialog sfd = new SaveFileDialog {
+        private void ценыПродуктовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog
+            {
                 Filter = "doc|*.doc|docx|*.docx"
             };
-            if (sfd.ShowDialog() == DialogResult.OK) {
-                try {
-                    reportService.SaveOutputPrice(new ReportBindingModel {
-                        FileName = sfd.FileName
-                    });
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    APICustomer.PostRequest<ReportBindingModel,
+                   bool>("api/Report/SaveSetPrice", new ReportBindingModel
+                   {
+                       FileName = sfd.FileName
+                   });
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
                 }
@@ -143,15 +157,14 @@ namespace ConfectioneryShopForm {
         }
 
         private void загруженностьСкладовToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormStoragesLoad>();
+            var form = new FormStoragesLoad();
             form.ShowDialog();
         }
 
         private void заказыКлиентовToolStripMenuItem_Click(object sender, EventArgs e) {
-            var form = Container.Resolve<FormCustomerOrder>();
+            var form = new FormCustomerOrder();
             form.ShowDialog();
         }
-
 
     }
 }

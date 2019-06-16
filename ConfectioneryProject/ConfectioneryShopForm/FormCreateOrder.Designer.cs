@@ -111,7 +111,7 @@
             this.save_Button.TabIndex = 8;
             this.save_Button.Text = "Сохранить";
             this.save_Button.UseVisualStyleBackColor = true;
-            this.save_Button.Click += new System.EventHandler(this.save_Button_Click);
+            this.save_Button.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // cancel_Button
             // 
@@ -121,7 +121,7 @@
             this.cancel_Button.TabIndex = 9;
             this.cancel_Button.Text = "Отмена";
             this.cancel_Button.UseVisualStyleBackColor = true;
-            this.cancel_Button.Click += new System.EventHandler(this.cancel_Button_Click);
+            this.cancel_Button.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // FormCreateOrder
             // 

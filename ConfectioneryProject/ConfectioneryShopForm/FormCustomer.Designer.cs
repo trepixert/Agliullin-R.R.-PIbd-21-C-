@@ -37,7 +37,7 @@
             this.save_Button.TabIndex = 0;
             this.save_Button.Text = "Сохранить";
             this.save_Button.UseVisualStyleBackColor = true;
-            this.save_Button.Click += new System.EventHandler(this.save_Button_Click);
+            this.save_Button.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // cancel_Button
             // 
@@ -47,7 +47,7 @@
             this.cancel_Button.TabIndex = 1;
             this.cancel_Button.Text = "Отмена";
             this.cancel_Button.UseVisualStyleBackColor = true;
-            this.cancel_Button.Click += new System.EventHandler(this.cancel_Button_Click);
+            this.cancel_Button.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // FNS_label
             // 
@@ -76,7 +76,7 @@
             this.Controls.Add(this.save_Button);
             this.Name = "Client";
             this.Text = "Клиент";
-            this.Load += new System.EventHandler(this.Client_Load);
+            this.Load += new System.EventHandler(this.FormCustomer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
